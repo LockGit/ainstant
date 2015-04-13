@@ -1,0 +1,104 @@
+<div class="main" id="main">
+	<div class="content">
+		<div class="home-content">
+			<?php foreach ($posts_list->items as $post_item) { ?> 	
+				<article class="home-article-bottom">
+					<div class="home-article-images-bottom">
+						
+							<a href="<?php echo $post_item->getPostUrl() ?>" title="<?php echo $post_item->getPostTitle(28) ?>">
+								<?php echo $post_item->getPostThumbnail(220,140) ?>
+							</a>
+										
+					</div>
+					<div class="home-article-content">
+						<h2 class="border-left">
+							<a href="<?php echo $post_item->getPostUrl() ?>" rel="bookmark" title="<?php echo $post_item->getPostTitle(28) ?>"><?php echo $post_item->getPostTitle(28) ?></a>
+						</h2>	
+						<div class="home-article-excerpt-bottom">
+							<p>
+								<?php echo $post_item->getPostExcerpt(160) ?>
+							</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="home-article-info-bottom">			
+								<span class="category-default-box-cat muted"><i class="icon-th-list icon12"></i>分类: <?php echo $post_item->getPostCategoryLink() ?></span>				
+								<span class="category-default-box-cat muted"><i class="icon-bookmark icon12"></i>标签: <?php echo $post_item->getPostTagLink() ?></span>
+								<span class="category-default-box-cat muted"><i class="icon-eye-open icon12"></i>超过  <?php echo $post_item->getPostView() ?> 人围观</span>
+								<span class="category-default-box-cat muted"><i class="icon-time icon12"></i>发表于 <?php echo $post_item->getPublishedDate() ?></span>				
+					</div>
+				</article>
+			<?php } ?> 
+			<?php echo $this->elements->getNav($posts_list); ?>
+		</div>
+	</div>
+	<aside class="sidebar">
+		
+		<section class="sidebar-default-box">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">随便来点</h5>
+			</div>
+			<div class="sidebar-default-box-content">
+				<ul>
+					<?php foreach ($post->getRandPost() as $post) { ?>
+						<?php 	$postTitle = $post->getPostTitle();
+								$postUrl = $post->getPostUrl();
+								$postView = $post->getPostView();
+								$postPublish = $post->getPublishedDate();
+							?>
+						<li>
+							<div class="sidebar-default-box-images">									
+								<a href="<?php echo $postUrl ?>" title="<?php echo $postTitle ?>">
+									<?php echo $post->getPostThumbnail(80,60) ?>
+								</a>									
+							</div>
+							<div class="sidebar-default-box-info">
+								<h4 class="sidebar-default-box-title">
+									<a href="<?php echo $postUrl ?>" rel="bookmark" title="<?php echo $postTitle ?>"><?php echo $postTitle ?></a>
+								</h4>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postView ?>
+								</span>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postPublish ?>
+								</span>
+							</div>
+							<div class="clear"></div>
+						</li>
+
+					<?php } ?> 
+				</ul>
+			</div>
+			<div class="sidebar-default-box-footer">
+			</div>
+		</section>
+
+		<section class="sidebar-default-box2">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">标签云集</h5>
+			</div>
+			<div class="sidebar-taglist"> 
+				<?php foreach ($tags as $tagItems) { ?>
+					<a rel="nofollow" href="<?php echo $tagItems->getTagUrl() ?>" title="<?php echo $tagItems->getTagPostCount() ?> 个话题" style='font-size: 12.292682926829pt;'><?php echo $tagItems->getTagName() ?></a>
+				<?php } ?>
+			</div>
+			
+			
+		</section>
+		
+		
+		<div class="clear"></div>
+	</aside>
+	<div class="clear"></div>
+	<div calss="">
+		
+		<?php
+			// foreach ($posts_list->items as $value) {
+			// 	foreach ($value->PostsCategorys as $value2) {
+			// 		var_dump($value2->Categorys->cattitle);
+			// 	}
+			// }
+		?>
+	</div>
+
+</div><!--end main-->	

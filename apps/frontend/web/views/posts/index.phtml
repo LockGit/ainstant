@@ -1,0 +1,172 @@
+
+	<div class="main" id="main">
+		<div class="content">
+			<article class="article">
+				<?php $post->setPostView() ?>
+				<div class="single-default">			
+					<div class="single-default-post-title">
+						<h1 class="border-left"><a href="<?php echo $post->getPostUrl() ?>"><?php echo $post->getPostTitle() ?></a></h1>
+					</div>
+					<div class="single-default-post-info">
+						<span class="single-default-box-cat muted"><i class="icon-time icon12"></i><?php echo $post->getPublishedDate() ?></span>
+						<span class="single-default-box-cat muted"><i class="icon-eye-open icon12"></i>
+							<?php echo $post->getPostView(); ?> ℃
+						</span>
+						<span class="single-default-box-cat muted"><i class="icon-th-list icon12"></i>
+							<?php echo $getPostCategoryLink = $post->getPostCategoryLink() ?>			
+						</span>
+						<span class="single-default-box-cat muted"><i class="icon-bookmark icon12"></i>
+							<?php echo $getPostTagLink = $post->getPostTagLink() ?>
+						</span>
+					</div>
+					<div class="post-content">
+						<?php echo $post->getContent() ?>
+					</div>
+				</div>
+				<div class="post-bottom">
+					<div class="post-bottom-title">
+						<h5 class="border-left">本文属性</h5>
+					</div>
+					<div class="post-detail">
+						<ul>
+							<li><span class="muted"><i class="icon-th-list"></i></span> 所属分类：<span id="post_category"> 
+								<?php echo $getPostCategoryLink ?>
+								</span>
+							</li>
+							<li><span class="muted"><i class="icon-bookmark"></i></span> 本文标签：
+								<?php echo $getPostTagLink ?>
+							</li>
+							<li><span class="muted"><i class="icon-fire"></i></span> 文章热度：<span id="post_view_count"><font color="red">
+								<?php echo $post->getPostView(); ?>	
+								℃</font></span> </li>
+							<li><span class="muted"><i class="icon-time"></i></span> 生产时间：
+								<?php //the_time("Y年m月j日  a G:i "); ?>
+								<?php echo $post->getPublishedDate() ?>
+							</li>
+						</ul>
+						<ul class="entry-relate-links">
+							<li><span class="muted"><i class="icon-chevron-up"></i> 上一篇 &gt;：</span>
+								<a href="<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
+								<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
+							</li>
+							<li><span class="muted"><i class="icon-chevron-down"></i> 下一篇 &gt;：</span>
+								<a href="<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
+								<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="post-bottom">
+					<div class="post-bottom-title">
+						<h5 class="border-left">相关文章</h5>
+					</div>
+					<ul class="related-post">
+					<?php var_dump($post->getPostThumbnail()) ?>
+						
+					</ul>
+				</div>	
+				<div id="post-comments">
+					
+				</div>
+				
+				
+				
+			</article>
+		</div>
+	<aside class="sidebar">
+		
+		<section class="sidebar-default-box">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">最新文章</h5>
+			</div>
+			<div class="sidebar-default-box-content">
+				<ul>
+					<?php foreach ($post->getNewPost() as $post) { ?>
+						<?php 	$postTitle = $post->getPostTitle();
+								$postUrl = $post->getPostUrl();
+								$postView = $post->getPostView();
+								$postPublish = $post->getPublishedDate();
+							?>
+						<li>
+							<div class="sidebar-default-box-images">									
+								<a href="<?php echo $postUrl ?>" title="<?php echo $postTitle ?>">
+									<?php echo $post->getPostThumbnail(80,60) ?>
+								</a>									
+							</div>
+							<div class="sidebar-default-box-info">
+								<h4 class="sidebar-default-box-title">
+									<a href="<?php echo $postUrl ?>" rel="bookmark" title="<?php echo $postTitle ?>"><?php echo $postTitle ?></a>
+								</h4>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postView ?>
+								</span>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postPublish ?>
+								</span>
+							</div>
+							<div class="clear"></div>
+						</li>
+
+					<?php } ?> 
+				</ul>
+			</div>
+			<div class="sidebar-default-box-footer">
+			</div>
+		</section>
+
+		<section class="sidebar-default-box2">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">标签云集</h5>
+			</div>
+			<div class="sidebar-taglist"> 
+				<?php //wp_tag_cloud('smallest=9&largest=14'); ?>
+			</div>
+						
+		</section>
+
+		<section class="sidebar-default-box">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">随便来点</h5>
+			</div>
+			<div class="sidebar-default-box-content">
+				<ul>
+					<?php foreach ($post->getRandPost() as $post) { ?>
+						<?php 	$postTitle = $post->getPostTitle();
+								$postUrl = $post->getPostUrl();
+								$postView = $post->getPostView();
+								$postPublish = $post->getPublishedDate();
+							?>
+						<li>
+							<div class="sidebar-default-box-images">									
+								<a href="<?php echo $postUrl ?>" title="<?php echo $postTitle ?>">
+									<?php echo $post->getPostThumbnail(80,60) ?>
+								</a>									
+							</div>
+							<div class="sidebar-default-box-info">
+								<h4 class="sidebar-default-box-title">
+									<a href="<?php echo $postUrl ?>" rel="bookmark" title="<?php echo $postTitle ?>"><?php echo $postTitle ?></a>
+								</h4>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postView ?>
+								</span>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postPublish ?>
+								</span>
+							</div>
+							<div class="clear"></div>
+						</li>
+
+					<?php } ?> 
+				</ul>
+			</div>
+			<div class="sidebar-default-box-footer">
+			</div>
+		</section>
+		
+		
+		<div class="clear"></div>
+	</aside>
+		<div class="clear"></div>
+
+	</div><!--end main-->	
+

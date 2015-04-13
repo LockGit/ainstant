@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<?php echo $this->tag->getTitle(); ?>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="alternate icon" type="image/png" href="/static/manage/assets/i/favicon.png">
+    <?php echo $this->tag->stylesheetLink('manage/assets/css/amazeui.min.css'); ?>
+    <?php echo $this->tag->stylesheetLink('manage/sweetalert/sweet-alert.css'); ?>
+	<style>
+	  .header {
+		text-align: center;
+	  }
+	  .header h1 {
+		font-size: 200%;
+		color: #333;
+		margin-top: 30px;
+	  }
+	  .header p {
+		font-size: 14px;
+	  }
+	</style>
+</head>
+<body>
+<div class="header">
+	<div class="am-g">
+	  <h1>一刻</h1>
+	  <p>为性能而生</p>
+	</div>
+	<?php $this->flashSession->output(); ?>
+	<hr />
+</div>
+<div class="am-g">
+	<div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+		<br>
+		<?php echo $this->tag->form(array('session/login', 'class' => 'am-form', 'id' => 'login-form')) ?>
+			<label for="username">用户名:</label>
+				<!--<input type="text" name="" id="email2" value="">-->
+                <?php echo $this->tag->textField(array('username')) ?>
+
+			<br>
+			<label for="password">密码:</label>
+				<!--<input type="password" name="" id="password" value="">-->
+                <?php echo $this->tag->passwordField(array('password')) ?>
+			<br>
+			
+			<br />
+			<div class="am-cf">
+                <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>"/>
+				<a id="login-form-submit" class="am-btn am-btn-primary am-btn-sm am-fl">登陆</a>
+				<a class="am-btn am-btn-default am-btn-sm am-fr">忘记密码</a>
+			</div>
+
+		</form>
+		<hr>
+		<p>© 2015 一刻</p>
+	</div>
+</div>
+<?php echo $this->tag->javascriptInclude('manage/assets/js/jquery.min.js'); ?>
+<?php echo $this->tag->javascriptInclude('manage/sweetalert/sweet-alert.min.js'); ?>
+<?php echo $this->tag->javascriptInclude('manage/js/login.js'); ?>
+</body>
+</html>
+

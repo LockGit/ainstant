@@ -1,0 +1,52 @@
+<?php foreach ($tags->items as $tag) { ?>
+	<?php 	$tagId = $tag->id;
+		  	$tagName = $tag->tagtitle;
+		  	$tagDescription = $tag->description;
+		?>
+	<div class="am-cf am-g am-margin-bottom-xs">
+		<div class="am-u-lg-1 am-show-lg-only"><?php echo $tagId ?></div>
+		<div class="am-u-lg-2 am-u-md-6 am-u-sm-6"><?php echo $tagName ?></div>
+		<div class="am-u-lg-6 am-show-lg-only am-text-truncate"><?php echo $tagDescription ?></div>
+		<div class="am-u-lg-3 am-u-md-6 am-u-sm-6 am-g-collapse">
+			<div class="am-u-lg-6 am-u-md-6 am-u-sm-6">
+				<a href="#" class="am-btn am-btn-success am-btn-block am-btn-xs tag-update" tagid="<?php echo $tagId ?>">编辑</a>
+			</div>
+			<div class="am-u-lg-6 am-u-md-6 am-u-sm-6">
+				<a href="#" class="am-btn am-btn-warning am-btn-block am-btn-xs tag-delete" tagid="<?php echo $tagId ?>">删除</a>
+			</div>
+		</div>
+	</div>
+<?php } ?>
+		
+  	<hr/>
+
+  	<div class="pagenavi">
+		<?php
+	  		$current = $tags->current;
+	        $before = $tags->before;
+	        $next = $tags->next;
+	        $last = $tags->last;
+	        $total_pages = $tags->total_pages;
+	        $total_items = $tags->total_items;
+	        ?>
+  		<?php if ($current != 1) { ?>
+  			<a href="#" id="tag-index-page">首页</a>
+		<?php } ?>
+
+  		<?php if ($before != $current) { ?>
+  			<a href="#" id="tag-prev-page" page="<?php echo $before ?>">上一页</a>
+  		<?php } ?>
+
+  		<span class="current-nav" id="tag-current-page" page="<?php echo $current ?>"><?php echo $current ?></span>
+  		
+  		<?php if ($next != $current) { ?>
+  			<a href="#" id="tag-next-page" page="<?php echo $next ?>">下一页</a>
+  		<?php } ?>
+		
+		<?php if ($last != $current) { ?>
+  			<a href="#" id="tag-last-page" page="<?php echo $last ?>">末页</a>
+  		<?php } ?>
+  		
+  		<a>共 <?php echo $total_pages ?> 页</a>
+  		<a><?php echo $total_items ?> 个标签</a>
+  	</div>

@@ -1,0 +1,17 @@
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加媒体</strong></div>
+</div>
+
+<?php $this->flashSession->output(); ?>
+
+<div class="am-cf am-g am-container am-padding-top-lg am-padding-bottom-xl">
+	<div id="dropzone">
+		<!-- <form action="medialibrary/postupload" class="dropzone dz-clickable" id="demo-upload"> -->
+		<?php echo $this->tag->form(array("medialibrary/upload", "id" => "flie-upload", "class" => "dropzone dz-clickable")) ?>
+		  	<div class="dz-message">
+		    Drop files here or click to upload.<br>
+		    <span class="note">(最大可以上传 <?php echo $max_upload = ini_get("file_uploads") ? ini_get("upload_max_filesize") : "Disabled"; ?> 文件。)</span>
+		  	</div>
+		</form>
+	</div>
+</div>

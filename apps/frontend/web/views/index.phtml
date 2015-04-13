@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<?php echo $this->tag->getTitle(); ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<?php echo $this->tag->stylesheetLink('web/css/style.css'); ?>
+	<?php echo $this->tag->stylesheetLink('web/css/main.css'); ?>
+	<?php echo $this->tag->stylesheetLink('common/Font-Awesome/css/font-awesome.css'); ?>
+	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+
+</head>
+
+<body>
+<header class="header border-top">
+	<div class="header-content">
+		<div class="logo">					
+			<h1>
+				<a href="<?php echo APP_URL ?>">nihao</a>
+			</h1>			
+		</div>
+		<nav class="nav">
+			<div class="nav-content">
+				
+			</div>				
+		</nav>
+
+		<div id="search">
+			<form method="get" id="searchform" action="#">
+				<input type="search" name="s" id="searchinput" value="搜索..." onfocus="this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;){this.value=&#39;搜索...&#39;;}"> 
+				<input type="submit" id="searchbtn" class="cbg" value="">
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+</header>
+
+<?php echo $this->getContent(); ?>
+
+<footer id="footer" class="border-top">
+	<div class="footer-content">
+		<p>Copyright &copy; <?php echo date('Y'); ?> Weilove.Me allright reserved. 粤备8023201314号</p>
+	</div>
+</footer>
+
+
+<!-- <div id="bdshare" style="left: 0pt; top:300px; height: 330px; overflow: hidden; width: 24px; position: fixed;">
+	<a href="http://list.qq.com/cgi-bin/qf_invite?id=f10896c7c2bf15dc0c448c0d748ef35ca3689957dc47514e" rel="nofollow" ><img src="static/web/images/feed.gif" alt="订阅本站" title="订阅本站" width="24" height="88" />
+	</a>
+</div> -->
+<div id="go-top" style="display: block; "><a href="#" title="Back to top">Back to top</a></div>
+
+<div id="loading-wrap" class="" style="height: 0px;">
+	<div class="loading" style="display: none; margin-top: 0px;">
+		<div class="loading-bar">
+			<div class="bar1"></div>
+			<div class="bar2"></div>
+			<div class="bar3"></div>
+			<div class="bar4"></div>
+		</div>
+		<div class="clear"></div>
+		<div class="loading-text">努力加载中……</div>
+	</div>
+</div>
+
+<?php echo $this->tag->javascriptInclude('web/js/jquery.min.js'); ?>
+<?php echo $this->tag->javascriptInclude('web/js/jquery.pjax.js'); ?>
+<script >
+	var pjaxHomeUrl = "<?php echo APP_URL ?>", 
+		pjaxTitleSuffix=" | 哈哈"
+</script>
+<?php echo $this->tag->javascriptInclude('web/js/pjax.js'); ?>
+
+
+<div style="display:none">
+				
+</div>
+					
+	
+</body>
+</html>

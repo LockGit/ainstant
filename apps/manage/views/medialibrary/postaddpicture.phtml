@@ -1,0 +1,30 @@
+<div id="post-picture-list">
+	<ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin-sm gallery-list am-scrollable-vertical" id="post-picture-list-ul">
+
+		<?php foreach ($file_list_page->items as $picture) { ?>
+		    <li>
+		        <a>
+		            <img class="am-img-thumbnail" src="<?php echo $picture->getThumbnail(720,500) ?>" width="720" height="500" picture-url="<?php echo $picture->file_url ?>" picture-width="<?php echo $picture->image_width ?>" picture-height="<?php echo $picture->image_height ?>"/>
+		        </a>
+		    </li>
+		<?php } ?>
+		          
+	</ul>
+    
+	<div class="am-margin-sm am-cf">
+	<hr/>
+		<div class="am-g">
+			<div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+				<a href=""class="am-btn am-btn-success am-btn-block am-btn-sm" id="post-picture-close">关闭</a>
+			</div>
+	  		<div class="am-u-lg-4 am-u-md-4 am-u-sm-4 post-picture-next">
+	  			<?php if (!empty($file_list_page->next)) { ?>
+            		<a href="/manage/medialibrary/postaddpicture?page=<?php echo $file_list_page->next ?>" current="<?php echo $file_list_page->current ?>" last="<?php echo $file_list_page->last ?>" class="am-btn am-btn-success am-btn-block am-btn-sm">查看更多...</a>
+        		<?php } ?>
+	  		</div>
+	  		<div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+	  			<a href=""class="am-btn am-btn-success am-btn-block am-btn-sm" id="post-picture-append">添加</a>
+	  		</div>
+	  	</div>
+	</div>
+</div>

@@ -1,0 +1,125 @@
+<?php use Chen\Models\Files; ?>
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加文章</strong></div>
+</div>
+
+<?php $this->flashSession->output(); ?>
+
+<div class="am-cf am-g">	
+	<?php echo $this->tag->form(array("posts/add", "id" => "post-form", "class" => "am-form")) ?>
+		<div class="am-u-lg-9">
+			<div class="am-form-group am-hide">
+		      	<label for="post-id">ID</label>
+		      	<!--<input class="form-control" name="post-id" placeholder="ID" type="text" autofocus>-->
+				<?php echo $this->tag->textField(array("post-id", "class" => "am-form-field", "placeholder" => "ID")); ?>
+		    </div>
+		    <div class="am-form-group">
+		      	<label for="post-title">标题</label>
+		      	<!--<input class="form-control" name="post-title" placeholder="标题" type="text" autofocus>-->
+				<?php echo $this->tag->textField(array("post-title", "class" => "am-form-field", "placeholder" => "标题", "autofocus" => "true")); ?>
+		    </div>
+			<div id="my-post-buttom">
+		    	<a href="#" class="am-btn am-btn-success am-margin-bottom am-btn-sm" id="post-add-image"><i class="am-icon-image"></i>  添加图片</a>
+		    </div>
+
+		    <div class="am-form-group">
+		      	<!--<textarea class="form-control" id="post-editor" name="post-content" rows="6" placeholder="请输入内容……"></textarea>-->
+	            <?php echo $this->tag->textArea(array("post-content", "rows" => 6, "class" => "am-form-field", "id" => "post-editor")); ?>
+		    </div>
+		    <div class="am-form-group">
+		      	<label for="post-keywords">关键词  <small>(每输完一词按回车)</small></label>
+		      	<!--<input name="keywords" class="tagsinput" id="post-keywords" data-role="tagsinput" value=""/>-->
+	        	<?php echo $this->tag->textField(array("post-keywords", "class" => "tagsinput", "data-role" => "tagsinput")); ?>
+		    </div>
+		    <div class="am-form-group">
+		      	<label for="post-description">描述</label>
+	        	<!--<input class="form-control" id="post-description" name="description" type="text"/>-->
+	        	<?php echo $this->tag->textArea(array("post-description", "class" => "am-form-field", "rows" => 2)); ?>
+		    </div>
+		    <div class="am-form-group">
+		      	<label for="post-excerpt">摘要</label>
+	        	<!--<input class="form-control" id="post-description" name="description" type="text"/>-->
+	        	<?php echo $this->tag->textArea(array("post-excerpt", "class" => "am-form-field", "rows" => 2)); ?>
+		    </div>
+
+		</div>
+		<div class="am-u-lg-3 am-padding-top-lg">
+			<a class="am-btn am-btn-success am-btn-block" id="create-post-submitform" href="#"><i class="am-icon-paper-plane"></i>  提交</a>
+
+			<div class="am-margin-top">
+				<h3>类型</h3>
+			    <?php foreach ($post_type_list as $type_value) { ?>
+					<div class="my-radio-padding">
+						<label class="am-radio my-radio">
+			                <input type="radio" name="post-type" value="<?php echo $type_value->id; ?>" data-am-ucheck required <?php if (isset($post_type_value)) {if ($post_type_value == $type_value->id) {echo "checked";} else {echo "";}} ?>>
+			                	<?php echo $type_value->typetitle; ?>
+			            </label>
+		            </div>
+				<?php } ?>
+			</div>
+
+			<div class="am-margin-top">
+				<h3>分类</h3>
+			    <?php foreach ($post_cat_list as $cat_value) { ?>
+						<div class="my-checkbox-padding">
+							<label class="am-checkbox my-checkbox">
+		                		<input name="post-cat[]" type="checkbox" data-am-ucheck value="<?php echo $cat_value->id; ?>" id="<?php echo 'checkbox_cat_'.$cat_value->id; ?>" required 
+		                		<?php if (isset($post_cat_value)) { if (in_array($cat_value->id, $post_cat_value)) { echo "checked"; } else { echo ""; }} ?>>
+		                		<?php echo $cat_value->cattitle; ?>
+		              		</label>
+	              		</div>
+				<?php } ?>
+			</div>
+
+			<div class="am-margin-top">
+				<h3>标签</h3>
+				<div class="tagsinput-primary">
+	            	<!--<input name="tagsinput" class="tagsinput" data-role="tagsinput" value="School, Teacher, Colleague" />-->
+	            	<?php echo $this->tag->textField(array("post-tag", "class" => "tagsinput", "data-role" => "tagsinput")); ?>
+	        	</div>
+
+	        	<div class="am-padding-bottom-lg">
+	        		<small>(下面是已经存在的标签)</small>
+	        		<hr/>
+	        		<?php foreach ($post_tag_list as $tag_value) { ?>
+	        			<span class="am-badge am-badge-success am-radius"><?php echo $tag_value->tagtitle; ?></span>
+					<?php } ?>
+	        	</div>
+			</div>
+
+			<hr/>
+
+			<div class="am-margin-top">
+				<a href="#" class="am-btn am-btn-success am-margin-bottom am-btn-block am-btn-sm" id="post-add-thumbnail"><i class="am-icon-image"></i>  添加缩略图</a>
+
+				<div id="post-thumbnail-box">
+					<?php if (!empty($post_picture_id)) { ?>
+						<?php $post_picture_thumbnail = Files::findFirst($post_picture_id); ?>
+						<img class="am-img-thumbnail" src="<?php echo $post_picture_thumbnail->getThumbnail(720,500) ?>" width="720" height="500" picture-id="<?php echo $post_picture_thumbnail->id ?>" />
+					<?php } ?>
+				</div>
+
+				<div class="am-form-group am-hide">
+			      	<!--<input class="form-control" name="post-id" placeholder="ID" type="text" autofocus>-->
+					<?php echo $this->tag->textField(array("post-picture", "class" => "am-form-field", "placeholder" => "ID")); ?>
+		    	</div>
+			</div>
+		</div>
+	</form>
+	<!--添加图片弹出层 Start-->
+	<div class="post-add-image-shade"><!--遮罩层--></div>
+	<div class="post-add-image-main" id="post-add-image-main">
+					
+	</div>
+    <!--添加图片弹出层 End-->
+
+    <!--添加缩略图弹出层 Start-->
+	<div class="post-add-image-shade2"><!--遮罩层--></div>
+	<div class="post-add-image-main2" id="post-add-thumbnail-main">
+					
+	</div>
+    <!--添加缩略图弹出层 End-->
+
+
+
+</div>

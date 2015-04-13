@@ -1,0 +1,23 @@
+<?php echo $this->tag->form(array("tags/index", "id" => "add-tag-form", "class" => "am-form am-g am-g-collapse")) ?>			
+	<legend class="am-text-lg">添加</legend>
+
+	<div class="am-form-group am-hide">
+		<label for="doc-ipt-id-1">ID</label>
+		<?php echo $this->tag->textField(array("tagId", "class" => "form-control", "placeholder" => "ID")); ?>
+	</div>
+
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-1">名称</label>
+		<?php echo $this->tag->textField(array("tagTitle", "class" => "form-control", "placeholder" => "名称……", "autofocus" => "true")); ?>
+	</div>
+
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-1">描述</label>
+		<?php echo $this->tag->textArea(array("tagDescription", "rows" => 3, "class" => "form-control", "placeholder" => "描述……")); ?>
+	</div>
+
+	<div class="am-form-group">
+		<a class="am-btn am-btn-success am-btn-block" id="add-tag-submitform" href="#"><i class="am-icon-paper-plane"></i>  提交</a>
+	</div>
+		    
+</form>

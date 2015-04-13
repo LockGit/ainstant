@@ -1,0 +1,75 @@
+<?php
+
+/*
+$di->set('db', function() use ($config) {
+	$dbclass = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
+	return new $dbclass(array(
+		"host"     => $config->database->host,
+		"username" => $config->database->username,
+		"password" => $config->database->password,
+		"dbname"   => $config->database->dbname,
+		"charset"  => "utf8"
+	));
+});
+*/
+
+$di->set('db',function () use ($config) {
+
+        $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config->database->toArray());
+
+        $debug = $config->manage->debug;
+        if ($debug) {
+
+            $eventsManager = new \Phalcon\Events\Manager();
+
+            $logger = new \Phalcon\Logger\Adapter\File(APP_PATH . "/apps/common/logs/db.log");
+
+            //Listen all the database events
+            $eventsManager->attach(
+                'db',
+                function ($event, $connection) use ($logger) {
+                    /** @var Phalcon\Events\Event $event */
+                    if ($event->getType() == 'beforeQuery') {
+                        /** @var DatabaseConnection $connection */
+                        $variables = $connection->getSQLVariables();
+                        if ($variables) {
+                            $logger->log($connection->getSQLStatement() . ' [' . join(',', $variables) . ']', \Phalcon\Logger::INFO);
+                        } else {
+                            $logger->log($connection->getSQLStatement(), \Phalcon\Logger::INFO);
+                        }
+                    }
+                }
+            );
+
+            //Assign the eventsManager to the db adapter instance
+            $connection->setEventsManager($eventsManager);
+        }
+
+        return $connection;
+    }
+);
+
+//Registering the Models-Metadata
+$di->set('modelsMetadata', function(){
+    return new \Phalcon\Mvc\Model\Metadata\Memory();
+});
+
+//Registering the Models Manager
+$di->set('modelsManager', function(){
+    return new \Phalcon\Mvc\Model\Manager();
+});
+
+//设置模型缓存服务
+$di->set('modelsCache', function() {
+
+    //默认缓存时间为一天
+    $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+        "lifetime" => 86400
+    ));
+
+    $cache = new \Phalcon\Cache\Backend\File($frontCache, array(
+        "cacheDir" => APP_PATH . "/apps/common/cache/"
+    ));
+
+    return $cache;
+});

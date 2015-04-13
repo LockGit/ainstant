@@ -1,0 +1,52 @@
+<?php foreach ($types->items as $type) { ?>
+	<?php 	$typeId = $type->id;
+		  	$typeName = $type->typetitle;
+		  	$typeDescription = $type->description;
+		?>
+	<div class="am-cf am-g am-margin-bottom-xs">
+		<div class="am-u-lg-1 am-show-lg-only"><?php echo $typeId ?></div>
+		<div class="am-u-lg-2 am-u-md-6 am-u-sm-6"><?php echo $typeName ?></div>
+		<div class="am-u-lg-6 am-show-lg-only am-text-truncate"><?php echo $typeDescription ?></div>
+		<div class="am-u-lg-3 am-u-md-6 am-u-sm-6 am-g-collapse">
+			<div class="am-u-lg-6 am-u-md-6 am-u-sm-6">
+				<a href="#" class="am-btn am-btn-success am-btn-block am-btn-xs type-update" typeid="<?php echo $typeId ?>">编辑</a>
+			</div>
+			<div class="am-u-lg-6 am-u-md-6 am-u-sm-6">
+				<a href="#" class="am-btn am-btn-warning am-btn-block am-btn-xs type-delete" typeid="<?php echo $typeId ?>">删除</a>
+			</div>
+		</div>
+	</div>
+<?php } ?>
+		
+  	<hr/>
+
+  	<div class="pagenavi">
+		<?php
+	  		$current = $types->current;
+	        $before = $types->before;
+	        $next = $types->next;
+	        $last = $types->last;
+	        $total_pages = $types->total_pages;
+	        $total_items = $types->total_items;
+	        ?>
+  		<?php if ($current != 1) { ?>
+  			<a href="#" id="type-index-page">首页</a>
+		<?php } ?>
+
+  		<?php if ($before != $current) { ?>
+  			<a href="#" id="type-prev-page" page="<?php echo $before ?>">上一页</a>
+  		<?php } ?>
+
+  		<span class="current-nav" id="type-current-page" page="<?php echo $current ?>"><?php echo $current ?></span>
+  		
+  		<?php if ($next != $current) { ?>
+  			<a href="#" id="type-next-page" page="<?php echo $next ?>">下一页</a>
+  		<?php } ?>
+		
+		<?php if ($last != $current) { ?>
+  			<a href="#" id="type-last-page" page="<?php echo $last ?>">末页</a>
+  		<?php } ?>
+  		
+  		<a>共 <?php echo $total_pages ?> 页</a>
+  		<a><?php echo $total_items ?> 个标签</a>
+  	</div>
