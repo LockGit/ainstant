@@ -455,34 +455,67 @@ $(function(){
     }
 
     //  文章列表 start
-    $('.post-list-next a').on('click',function(e) {
-        e.preventDefault();
-        $(this).html('<i class="am-icon-spinner am-icon-spin"></i>  加载中……');
-        //  ajax
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('href'),
-            dataType: "html",
-            success: function(out) {
-                result = $(out).find('#post-list-box');
-                nextlink = $(out).find('.post-list-next a').attr('href');
-                        $("#post-list-content").append(result.fadeIn(500));
-                        $('.post-list-next a').html('查看更多...');
-                
-                current = $(out).find('.post-list-next a').attr('current');
-                last = $(out).find('.post-list-next a').attr('last');
-
-                if (current === last) {
-                    $('.post-list-next a').remove();
-                    $('.post-list-next').append('<button type="button" class="am-btn am-btn-danger am-btn-block am-disabled">没有更多了！</button>');
-                } else {
-                    $('.post-list-next a').attr('href', nextlink);
-                }
-                
-            }
+    postListLoad(1);
+    function postListLoad(pages) {
+        var postListUrl = location.protocol+'//'+location.hostname +'/manage/posts/postlist';
+        $('#post-list').load(postListUrl, {page : pages}, function(data) {
+            
+            postListPage();
+            postItemDelete();
         });
-        
-    });
+    }
+
+    function postListPage() {
+        $('#post-index-page').on('click', function(e) {
+            e.preventDefault();
+            postListLoad(1);
+        });
+        $('#post-prev-page').on('click', function(e) {
+            e.preventDefault();
+            postListLoad($(this).attr('page'));
+        });
+        $('#post-next-page').on('click', function(e) {
+            e.preventDefault();
+            postListLoad($(this).attr('page'));
+        });
+        $('#post-last-page').on('click', function(e) {
+            e.preventDefault();
+            postListLoad($(this).attr('page'));
+        });
+    }
+
+    function postItemDelete() {
+        $('.post-delete').on('click', function(e) {
+            e.preventDefault();
+            var postIdDelete = $(this).attr('postid');
+            swal({   
+                title: "你确定?",   
+                text: "删除这篇文章!",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Yes, delete it!",   
+                closeOnConfirm: false 
+            }, function(){   
+
+                    var postDeleteUrl = location.protocol+'//'+location.hostname +'/manage/posts/delete';
+                    $.post(postDeleteUrl, {postId : postIdDelete}, function(data) {
+                        
+                        if (data === 'errorDelete') {
+                            swal("抱歉!", "删除失败!", "error");
+                        } else if (data === 'successDelete') {
+                            swal("OK!", "删除成功!", "success");
+                            postListLoad($('#post-current-page').attr('page'));
+                        } else if (data === 'errorNoPost') {
+                            swal("抱歉!", "你要删除的类型可能不存在!", "error");
+                        } else {
+                            swal("NO!", "未知错误!", "error");
+                        }
+                    });
+                });
+        });
+    }
+
 
     //  文章列表 End
 

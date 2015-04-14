@@ -155,7 +155,7 @@ class Posts extends \Phalcon\Mvc\Model
     
     public function getPostType() 
     {
-        return $this->getTypes();
+        return $this->getTypes()->typetitle;
     }
     
     public function getPostCategory() 

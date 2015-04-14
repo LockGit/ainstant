@@ -22,27 +22,34 @@ class PostsController extends ControllerBase
     //文章列表
     public function indexAction()
     {
-     	$currentPage = $this->request->getQuery("page", "int");
+        $this->tag->prependTitle('文章列表');
+    }
 
-        $posts_list_find = Posts::find(array("order" => "publish_time desc"));
+    public function postlistAction()
+    {
+        if ($this->request->isPost() == true && $this->request->isAjax()) {
 
-        $paginator = new \Phalcon\Paginator\Adapter\Model(
-            array(
-                "data" => $posts_list_find,
-                "limit"=> 5,
-                "page" => $currentPage
-            )
-        );
-        //  获取结果
-        $posts_lists = $paginator->getPaginate();
+            $currentPage = $this->request->getPost("page", "int");
 
-        $this->view->posts_list = $posts_lists;
+            $postsListFind = Posts::find(array("order" => "publish_time desc"));
 
-        if ($this->request->isAjax()) {
-            $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+            $paginator = new \Phalcon\Paginator\Adapter\Model(
+                array(
+                    "data" => $postsListFind,
+                    "limit"=> 4,
+                    "page" => $currentPage
+                )
+            );
+            //  获取结果
+            $postsLists = $paginator->getPaginate();
+
+            $this->view->posts_list = $postsLists;
+
+        } else {
+            return $this->response->redirect('cats/index');
         }
 
-        $this->tag->prependTitle('文章列表');
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
     //添加文章
@@ -255,7 +262,7 @@ class PostsController extends ControllerBase
                         //$this->view->post_picture_id = $post_picture;
                     }
 
-                    if ($post->update() == false) {
+                    if ($post->save() == false) {
                         //$this->flashSession->error("更新失败！");
                         echo 'errorUpdata';
                         exit;
@@ -309,7 +316,6 @@ class PostsController extends ControllerBase
                         $post_tag_delete = array_diff($post_tagtitle, $post_tag);
                         if (!empty($post_tag_update) || !empty($post_tag_delete)) {
                             //  根据 post_id 删除文章对应的所有标签
-                            //$post_tag_find_delete = PostsTags::find(array("posts_id = :posts_id:", 'bind' => array('posts_id' => $post_id)));
                             if ($post_tag_find->delete() == false) {
                                 $this->flashSession->error("标签删除失败！");
                             } else {
@@ -335,50 +341,44 @@ class PostsController extends ControllerBase
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
 
-    public function deleteAction($postid)
+    public function deleteAction()
     {
-    	if (empty($postid)) 
-        {
-            return $this->forward('errors/show404');
-        } 
-        else 
-        {
-            $post_find = Posts::findFirst($postid);
-            if ($post_find != false) 
-            {
-                
-                $post_delete_find = Posts::findFirst($postid);
-                if ($post_delete_find->delete() == false) 
-                {
+        if ($this->request->isPost() == true && $this->request->isAjax()) {
 
-                    $this->flashSession->error("删除失败！");
-                    return $this->response->redirect('posts/index');
-                } 
-                else 
-                {
-                    //  删除分类
-                    $post_cat_find = PostsCategorys::find(array("posts_id = '$postid'"));
-                    if ($post_cat_find != false) 
+            $postId = $this->request->getPost("postId", "int");
+            
+            $postFind = Posts::findFirst($postId);
+            if ($postFind != false) {
+                
+                if ($postFind->delete() == false) {
+
+                    echo 'errorDelete';
+                } else {
+
+                    $postCatFind = PostsCategorys::find(array("posts_id = '$postId'"));
+                    if ($postCatFind != false) 
                     {
-                        $post_cat_find->delete();
+                        $postCatFind->delete();
                     }
-                    //  删除标签
-                    $post_tag_find = PostsTags::find(array("posts_id = '$postid'"));
-                    if ($post_tag_find != false) 
+
+                    $postTagFind = PostsTags::find(array("posts_id = '$postId'"));
+                    if ($postTagFind != false) 
                     {
-                        $post_tag_find->delete();
+                        $postTagFind->delete();
                     }
                     
-                    $this->flashSession->success("删除成功！");
-                    return $this->response->redirect('posts/index');
+                    echo 'successDelete';
                 }
-            } 
-            else 
-            {
-                $this->flashSession->error("你要删除的文章不存在！");
-                return $this->response->redirect('posts/index');
+            } else {
+                echo 'errorNoPost';
             }
+
+        } else {
+            return $this->response->redirect('posts/index');
         }
+
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+        
     }
 
     

@@ -1,0 +1,73 @@
+<hr/>
+    <div id="post-list-content">
+    	
+            <?php foreach ($posts_list->items as $post_item) { ?>   
+                <article class="post-list-box post-list-item">
+                    <div class="post-title">
+                        <?php echo $post_item->getPostTitle(); ?>
+                    </div>
+                    <div class="am-fl post-img">
+                        <img src="<?php if ($post_item->getFiles()) { echo $post_item->files->getThumbnail(100, 65); } ?>" width="100" height="65" />
+                    </div>
+                    <span class="post-main">
+                        <div class="am-text-truncate post-excerpt">
+                            <?php echo $post_item->getPostExcerpt() ?>
+                        </div>
+                        <div class="am-cf">
+                            <div class="am-fl post-info am-text-sm">
+                                <span><i class="am-icon-book"></i><?php echo $post_item->getPostType() ?></span>
+                                <span><i class="am-icon-th"></i><?php echo $post_item->getPostCategory() ?></span>
+                                <span><i class="am-icon-tags"></i><?php echo $post_item->getPostTag() ?></span>
+                                <span><i class="am-icon-eye"></i><?php echo $post_item->getPostView() ?> ℃</span>
+                            </div>
+                            <div class="am-fr am-g-collapse post-sitting">
+                                <div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+                                    <a href="<?php echo $post_item->getPostUrl() ?>" class="am-btn am-btn-primary am-btn-block am-btn-xs cat-update" target="_blank">查看</a>
+                                </div>
+                                <div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+                                    <a href="/manage/posts/create/<?php echo $post_item->id ?>" class="am-btn am-btn-success am-btn-block am-btn-xs cat-update">编辑</a>
+                                </div>
+                                <div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+                                    <a href="#" class="am-btn am-btn-warning am-btn-block am-btn-xs post-delete" postid="<?php echo $post_item->id ?>">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+
+                </article>
+            
+            <?php } ?>    	
+       
+    </div>
+    <hr/>
+    <div class="pagenavi">
+        <?php
+            $current = $posts_list->current;
+            $before = $posts_list->before;
+            $next = $posts_list->next;
+            $last = $posts_list->last;
+            $total_pages = $posts_list->total_pages;
+            $total_items = $posts_list->total_items;
+            ?>
+        <?php if ($current != 1) { ?>
+            <a href="#" id="post-index-page">首页</a>
+        <?php } ?>
+
+        <?php if ($before != $current) { ?>
+            <a href="#" id="post-prev-page" page="<?php echo $before ?>">上一页</a>
+        <?php } ?>
+
+        <span class="current-nav" id="post-current-page" page="<?php echo $current ?>"><?php echo $current ?></span>
+        
+        <?php if ($next != $current) { ?>
+            <a href="#" id="post-next-page" page="<?php echo $next ?>">下一页</a>
+        <?php } ?>
+        
+        <?php if ($last != $current) { ?>
+            <a href="#" id="post-last-page" page="<?php echo $last ?>">末页</a>
+        <?php } ?>
+        
+        <a>共 <?php echo $total_pages ?> 页</a>
+        <a><?php echo $total_items ?> 篇文章</a>
+    </div>
