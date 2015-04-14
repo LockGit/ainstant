@@ -441,7 +441,7 @@ $(function(){
         editor = new Simditor({
             textarea: $('#post-editor'),
             toolbar: toolbar,
-            defaultImage: '/backend/simditor/images/image.png',
+            defaultImage: '/static/manage/simditor/images/image.png',
             autosave: 'editor-content',
             upload:  {
                 url: '../medialibrary/upload', //上传途径
