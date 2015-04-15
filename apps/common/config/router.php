@@ -40,29 +40,29 @@
 
 		$router->add('/{post}.html', array(
 		 	'module' => 'frontend',
-		 	'controller' => 'posts',
+		 	'controller' => 'post',
 		 	'action' => 'index'
-		))->setName('show-post');
+		));
 
 		$router->add('/{types}/{post}.html', array(
 			'module' => 'frontend',
-			'controller' => 'posts',
+			'controller' => 'post',
 			'action' => 'index'
 		));
 
 		$router->add('/category/{category}', array(
 			'module' => 'frontend',
-			'controller' => 'index',
+			'controller' => 'category',
 			'action' => 'index'
-		))->setName('show-post');
+		));
 
 		$router->add('/tag/{tag}', array(
 			'module' => 'frontend',
-			'controller' => 'index',
+			'controller' => 'tag',
 			'action' => 'index'
-		))->setName('show-post');
+		));
 
-
+		/* 后台 */
 		$router->add('/manage', array(
 			'module' => 'manage',
 			'controller' => 'index',

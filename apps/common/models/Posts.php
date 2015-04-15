@@ -173,7 +173,8 @@ class Posts extends \Phalcon\Mvc\Model
         $categorys = array();
         foreach ($this->getPostsCategorys() as $PostsCategory) {
             $category = $PostsCategory->getCategorys();
-            $categorys[] = Tag::linkTo(array('category/'.$category->cattitle, $category->cattitle));
+            $categoryName = $category->cattitle;
+            $categorys[] = Tag::linkTo(array('category/'.$categoryName, $categoryName));
         }
         return implode(' , ',$categorys);
     }

@@ -3,19 +3,20 @@ namespace Chen\Frontend\Web\Controllers;
 
 use \Phalcon\Mvc\Controller;
 use \Phalcon\Mvc\View;
+use Chen\Models\Posts;
+use Chen\Models\Tags;
 
 class ControllerBase extends Controller
 {
 
-
     protected function initialize()
     {
         
-        //设置标题分离器
         $this->tag->setTitleSeparator(' | ');
-        //$this->tag->prependTitle('一刻');
-        //$this->tag->appendTitle('Shimmer'); 
         $this->tag->setTitle('一刻');
+
+        $this->view->post = new Posts();
+        $this->view->tags = Tags::find();
 
         if ($this->is_pjax()) {
         	$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);

@@ -1,0 +1,56 @@
+
+		
+		<section class="sidebar-default-box">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">随便来点</h5>
+			</div>
+			<div class="sidebar-default-box-content">
+				<ul>
+					<?php foreach ($post->getRandPost() as $post) { ?>
+						<?php 	$postTitle = $post->getPostTitle();
+								$postUrl = $post->getPostUrl();
+								$postView = $post->getPostView();
+								$postPublish = $post->getPublishedDate();
+							?>
+						<li>
+							<div class="sidebar-default-box-images">									
+								<a href="<?php echo $postUrl ?>" title="<?php echo $postTitle ?>">
+									<?php echo $post->getPostThumbnail(80,60) ?>
+								</a>									
+							</div>
+							<div class="sidebar-default-box-info">
+								<h4 class="sidebar-default-box-title">
+									<a href="<?php echo $postUrl ?>" rel="bookmark" title="<?php echo $postTitle ?>"><?php echo $postTitle ?></a>
+								</h4>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postView ?>
+								</span>
+								<span class="sidebar-default-box-cat muted">
+									<?php echo $postPublish ?>
+								</span>
+							</div>
+							<div class="clear"></div>
+						</li>
+
+					<?php } ?> 
+				</ul>
+			</div>
+			<div class="sidebar-default-box-footer">
+			</div>
+		</section>
+
+		<section class="sidebar-default-box2">
+			<div class="sidebar-box-title">
+					<h5 class="border-left">标签云集</h5>
+			</div>
+			<div class="sidebar-taglist"> 
+				<?php foreach ($tags as $tagItems) { ?>
+					<a rel="nofollow" href="<?php echo $tagItems->getTagUrl() ?>" title="<?php echo $tagItems->getTagPostCount() ?> 个话题" style='font-size: 12.292682926829pt;'><?php echo $tagItems->getTagName() ?></a>
+				<?php } ?>
+			</div>
+			
+			
+		</section>
+		
+		
+		<div class="clear"></div>

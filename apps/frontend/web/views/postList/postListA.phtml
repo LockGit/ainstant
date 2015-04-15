@@ -1,0 +1,28 @@
+<?php foreach ($posts_list->items as $post_item) { ?> 	
+				<article class="home-article-bottom">
+					<div class="home-article-images-bottom">
+						
+							<a href="<?php echo $post_item->getPostUrl() ?>" title="<?php echo $post_item->getPostTitle(28) ?>">
+								<?php echo $post_item->getPostThumbnail(220,140) ?>
+							</a>
+										
+					</div>
+					<div class="home-article-content">
+						<h2 class="border-left">
+							<a href="<?php echo $post_item->getPostUrl() ?>" rel="bookmark" title="<?php echo $post_item->getPostTitle(28) ?>"><?php echo $post_item->getPostTitle(28) ?></a>
+						</h2>	
+						<div class="home-article-excerpt-bottom">
+							<p>
+								<?php echo $post_item->getPostExcerpt(160) ?>
+							</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="home-article-info-bottom">			
+								<span class="category-default-box-cat muted"><i class="icon-th-list icon12"></i>分类: <?php echo $post_item->getPostCategoryLink() ?></span>				
+								<span class="category-default-box-cat muted"><i class="icon-bookmark icon12"></i>标签: <?php echo $post_item->getPostTagLink() ?></span>
+								<span class="category-default-box-cat muted"><i class="icon-eye-open icon12"></i>超过  <?php echo $post_item->getPostView() ?> 人围观</span>
+								<span class="category-default-box-cat muted"><i class="icon-time icon12"></i>发表于 <?php echo $post_item->getPublishedDate() ?></span>				
+					</div>
+				</article>
+			<?php } ?> 
