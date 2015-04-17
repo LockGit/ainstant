@@ -15,10 +15,22 @@ class IndexController extends ControllerBase
     {
     	$currentPage = $this->request->getQuery("page", "int");
 
+        $postFind = Posts::find(array("order" => "id DESC"));
+
+        /*
+        $cacheKey = 'robots_order_id.cache';
+        $postFind = $this->modelsCache->get($cacheKey, 120);
+        if ($postFind === null) {
+
+            $postFind = Posts::find(array("order" => "id DESC"));
+            $this->modelsCache->save($cacheKey, $postFind);
+        }
+        */
+
         $paginator = new \Phalcon\Paginator\Adapter\Model(
             array(
-                "data" => Posts::find(array("order" => "id DESC")),
-                "limit"=> 10,
+                "data" => $postFind,
+                "limit"=> 3,
                 "page" => $currentPage
             )
         );

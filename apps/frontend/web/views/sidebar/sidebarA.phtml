@@ -44,9 +44,9 @@
 					<h5 class="border-left">标签云集</h5>
 			</div>
 			<div class="sidebar-taglist"> 
-				<?php foreach ($tags as $tagItems) { ?>
-					<a rel="nofollow" href="<?php echo $tagItems->getTagUrl() ?>" title="<?php echo $tagItems->getTagPostCount() ?> 个话题" style='font-size: 12.292682926829pt;'><?php echo $tagItems->getTagName() ?></a>
-				<?php } ?>
+				<?php foreach($tags->getTags() as $tag ) { 
+						echo $tag;
+					} ?>
 			</div>
 			
 			

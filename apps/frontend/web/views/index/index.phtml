@@ -1,6 +1,10 @@
 <div class="main" id="main">
+	<?php echo $this->elements->getBreadCrumb(); ?>
 	<div class="content">
 		<div class="home-content">
+			<!-- postTopNav -->
+			<?php echo $this->elements->getTopNav($posts_list); ?>
+			<!-- postTopNav -->
 			<!-- postList -->
 			<?php $this->partial("postList/postListA") ?>
 			<!-- postList -->

@@ -1,5 +1,5 @@
 <?php
-namespace Chen\Frontend\Web\Controllers;
+namespace Chen\Frontend\Wap\Controllers;
 
 use Chen\Models\Posts;
 

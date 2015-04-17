@@ -8,7 +8,7 @@ return new \Phalcon\Config(array(
 
     'site' => array(
         'name'      => '一刻',
-        'url'       => 'http://localhost'
+        'url'       => ''
     ),
     //数据库
     'database'    => array(
@@ -23,13 +23,11 @@ return new \Phalcon\Config(array(
     'manage' => array(
         'development'    => array(
             'staticBaseUri' => '/static/',
-            'baseUri'       => '/manage/',
-            'basePath'      => 'http://localhost/'
+            'baseUri'       => '/manage/'
         ),
         'production'     => array(
             'staticBaseUri' => 'http://example.com/',
-            'baseUri'       => '/manage/',
-            'basePath'      => '/manage/'
+            'baseUri'       => '/manage/'
         ),
         'debug'          => true
     ),

@@ -1,5 +1,5 @@
 <?php
-namespace Chen\Frontend\Web\Controllers;
+namespace Chen\Frontend\Wap\Controllers;
 
 use Chen\Models\Categorys;
 
@@ -33,7 +33,7 @@ class CategoryController extends ControllerBase
                 )
             );
 
-            $this->view->posts_list = $paginator->getPaginate();
+            $this->view->postsList = $paginator->getPaginate();
             $this->view->crumbName = $CategoryName;
 
             $this->tag->appendTitle($CategoryName);

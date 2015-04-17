@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* 
+	Theme Name: weilove
+	Theme URL: http://weilove.me/
+	Description: 唯爱网
+	Author: weilove
+	Author URI: http://weilove.me/
+	Version: 1.2.0
+*/
+
+/* CSS Document */
+*{
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	-vertical-align: baseline;
+	outline: none;	
+}
+html {
+	-webkit-text-size-adjust: none;
+	height: 100%;
+}
+body {
+	font-size: 62.5%;
+	line-height: 1;
+	font-family: 微软雅黑, Microsoft YaHei, Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+strong {
+	font-weight: bold;
+}
+input {
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+img {
+	border: 0;
+	max-width: 100%;
+	height: auto;
+	width: auto9; /* ie8 */
+}
+h1 {
+	font-size: 1.7em;
+}
+h2 {
+	font-size: 1.6em;
+}
+h3 {
+	font-size: 1.5em;
+}
+h4 {
+	font-size: 1.4em;
+}
+h5 {
+	font-size: 1.3em;
+}
+h6 {
+	font-size: 1.2em;
+}
+.clear {
+	clear: both;
+	overflow:hidden
+}
+.video embed, .video object, .video iframe {
+	width: 100%;
+	height: auto;
+}
+::selection {
+	background: rgba(153,204,51,1);
+	color: white;
+	text-shadow: none;
+}
+::-webkit-scrollbar-track-piece {
+width:10px;
+background-color: rgba(204,255,153,1);
+}
+::-webkit-scrollbar {
+width:10px;
+height:4px
+}
+::-webkit-scrollbar-thumb {
+height:50px;
+background-color: rgba(255,153,0,1);
+}
+::-webkit-scrollbar-thumb:hover {
+background: rgba(255,153,0,1);
+}
+/*****************************************************************************************************/

@@ -111,7 +111,7 @@ class Module
 		$di->set('session', function() {
 		    $session = new \Phalcon\Session\Adapter\Files(
 		    	array(
-            		'uniqueId' => 'my-app-2'
+            		'uniqueId' => 'my-app-frontend'
         		)
 		    );
 		    $session->start();

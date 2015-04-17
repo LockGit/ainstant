@@ -1,0 +1,17 @@
+<article class="entry">
+	<div class="entry-thumb">
+		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(28) ?>">
+			<?php echo $postItem->getPostThumbnail(140,100) ?>
+		</a>
+	</div>
+	<div class="entry-body">
+		<h2 class="entry-title"><a href="<?php echo $postItem->getPostUrl() ?>" rel="bookmark"><?php echo $postItem->getPostTitle(28) ?></a></h2>
+		<div class="entry-meta">
+			<span class="entry-category-icon"><?php echo $postItem->getPostCategoryLink() ?></span>
+			<span class=""><?php echo $postItem->getPostView() ?>℃</span>
+		</div>
+		<div class="entry-content">
+			<?php echo $postItem->getPostExcerpt(120) ?>
+		</div>
+	</div>
+</article>

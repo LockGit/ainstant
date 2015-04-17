@@ -122,12 +122,10 @@ class Posts extends \Phalcon\Mvc\Model
     public function getPostUrl() 
     { 
         return $postUrl = APP_URL.'/'.$this->id.'.html';
-        //return $this->id;
     } 
 
     public function getPublishedDate()
     {
-        //return strftime('%Y %m %d %H %M %S', $this->publish_time);
         return date("Y-m-d H:i:s", $this->publish_time);
     }
 
@@ -174,7 +172,8 @@ class Posts extends \Phalcon\Mvc\Model
         foreach ($this->getPostsCategorys() as $PostsCategory) {
             $category = $PostsCategory->getCategorys();
             $categoryName = $category->cattitle;
-            $categorys[] = Tag::linkTo(array('category/'.$categoryName, $categoryName));
+            $categoryUrl = urlencode($categoryName);
+            $categorys[] = Tag::linkTo(array('category/'.$categoryUrl, $categoryName));
         }
         return implode(' , ',$categorys);
     }
@@ -194,7 +193,9 @@ class Posts extends \Phalcon\Mvc\Model
         $tags = array();
         foreach ($this->getPostsTags() as $TagsCategory) {
             $tag = $TagsCategory->getTags();
-            $tags[] = Tag::linkTo(array('tag/'.$tag->tagtitle, $tag->tagtitle));
+            $tagName = $tag->tagtitle;
+            $tagUrl = urlencode($tagName);
+            $tags[] = Tag::linkTo(array('tag/'.$tagUrl, $tagName));
         }
         return implode(' , ',$tags);
     }

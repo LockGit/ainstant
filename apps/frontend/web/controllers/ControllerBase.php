@@ -16,7 +16,7 @@ class ControllerBase extends Controller
         $this->tag->setTitle('一刻');
 
         $this->view->post = new Posts();
-        $this->view->tags = Tags::find();
+        $this->view->tags = new Tags();
 
         if ($this->is_pjax()) {
         	$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);

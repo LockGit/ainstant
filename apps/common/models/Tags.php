@@ -1,5 +1,7 @@
 <?php 
 namespace Chen\Models;
+
+use \Phalcon\Tag;
 //类型
 class Tags extends \Phalcon\Mvc\Model
 {
@@ -35,9 +37,22 @@ class Tags extends \Phalcon\Mvc\Model
         return $this->tagtitle;
     }
 
-    public function getTagUrl()
-    {        
-        return $tagUrl = APP_URL.'/tag/'.urlencode($this->tagtitle);     
+    // public function getTagUrl()
+    // {        
+    //     return $tagUrl = APP_URL.'/tag/'.urlencode($this->tagtitle);     
+    // }
+
+    public function getTags()
+    {
+        $tagsFind = self::find();
+        $tags = array();
+        foreach ($tagsFind as $tag) {
+            $tagName = $tag->tagtitle;
+            $tagUrl = urlencode($tagName);
+            $tags[] = Tag::linkTo(array('tag/'.$tagUrl, $tagName, 'rel' => 'nofollow', 'title' => $tag->getTagPostCount().' 个话题'));
+        }
+
+        return $tags;
     }
 
     public function getTagPostCount()

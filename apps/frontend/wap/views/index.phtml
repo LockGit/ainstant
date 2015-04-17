@@ -1,1 +1,105 @@
-<p>手机</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<?php echo $this->tag->getTitle(); ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="apple-mobile-web-app-title" content="一刻" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <!-- <meta name="full-screen" content="yes"> -->
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <!-- <meta name="browsermode" content="application"> -->
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+	<link rel="icon" href="http://c8023.com/favicon/favicon.ico" type="image/x-icon">
+	<?php echo $this->tag->stylesheetLink('wap/css/style.css'); ?>
+	<?php echo $this->tag->stylesheetLink('wap/css/main.css'); ?>
+	<?php echo $this->tag->stylesheetLink('common/Font-Awesome/css/font-awesome.css'); ?>
+</head>
+<body>
+<header id="nav">
+	<ul class="nav-ul"><li><a id="logo" href="<?php echo APP_URL ?>"></a></li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_explor')">分类<span></span></a>
+			<div class="submenu" id="nav_explor">
+				<ul class="cat_ul">
+					<?php foreach($categorys->getCategorys() as $category ) { 
+						echo '<li>'.$category.'</li>';
+						} ?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_tags')">标签<span></span></a>
+			<div class="submenu" id="nav_tags">
+				<div>
+					<?php foreach($tags->getTags() as $tag ) { 
+						echo $tag;
+						} ?>
+				</div>
+			</div>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_follow')">关注<span></span></a>
+			<ul class="submenu" id="nav_follow">
+				<!-- <li class="first"><a target="_blank" href="http://weibo.com/c8023.com/" rel="nofllow">新浪微博</a></li>
+				<li><a target="_blank" href="http://t.qq.com/http://t.qq.com/c8023huixi" rel="nofllow">腾讯微博</a></li> -->
+				<li><a target="_blank" href="http://c8023.com/feed">RSS订阅</a></li>
+			</ul>
+		</li>
+		<li class="dropdownlink">
+			<a target="_blank" onClick="showSubmenu('nav_more')">更多<span></span></a>
+			<ul class="submenu" id="nav_more">
+				<li class="submenu_div">各种传送门：</li>
+				<li><a href="<?php //echo home_url( '/' ); ?>archive">文章归档</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>comments">留言板</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>about">关于我们</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>sitemap.html">站点地图</a></li>
+			</ul>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_search')">搜索<span></span></a>
+			<div class="submenu" id="nav_search">
+				<form method="get" id="searchform" action="<?php //echo get_option('home'); ?>">
+				<input type="text" name="s" id="searchinput" value="搜索..." onfocus="this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;){this.value=&#39;搜索...&#39;;}"> 
+				<input type="submit" id="searchbtn" class="cbg" value="搜 索">
+			</form>
+			</div>
+		</li>
+	</ul>
+</header>
+<div class="clear"></div> 
+
+<div id="container">
+
+<?php echo $this->getContent(); ?>
+
+</div>
+<div class="clear"></div><!-- #container -->
+
+<footer id="footer">
+	<div id="footer-body">
+		<div id="footer-content">
+			Copyright &copy; <?php echo date('Y'); ?> <a href="<?php echo APP_URL ?>" rel="home"><?php //bloginfo( 'name' ); ?></a>
+		</div>
+	</div>
+</footer>
+<div class="clear"></div>
+<?php echo $this->tag->javascriptInclude('wap/script/jquery.min.js'); ?>
+<?php echo $this->tag->javascriptInclude('wap/script/mobile.js'); ?>
+<div style="display:none">
+			
+</div>
+
+</body>
+</html>

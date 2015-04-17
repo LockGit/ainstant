@@ -42,7 +42,9 @@
 					<h5 class="border-left">标签云集</h5>
 			</div>
 			<div class="sidebar-taglist"> 
-				<?php //wp_tag_cloud('smallest=9&largest=14'); ?>
+				<?php foreach($tags->getTags() as $tag ) { 
+						echo $tag;
+					} ?>
 			</div>
 						
 		</section>

@@ -1,5 +1,5 @@
 <?php
-namespace Chen\Frontend\Web\Controllers;
+namespace Chen\Frontend\Wap\Controllers;
 
 use Chen\Models\Tags;
 
@@ -37,7 +37,7 @@ class tagController extends ControllerBase
                 )
             );
 
-            $this->view->posts_list = $paginator->getPaginate();
+            $this->view->postsList = $paginator->getPaginate();
             $this->view->crumbName = $TagName;
 
             $this->tag->appendTitle($TagName);

@@ -1,0 +1,11 @@
+<article class="top-entry">
+	<div class="top-entry-img-wrapper">
+		<a class="top-entry-img" href="<?php echo $postItem->getPostUrl() ?>">
+			<?php echo $postItem->getPostThumbnail(450,250) ?>
+			<h2 class="entry-title"><?php echo $postItem->getPostTitle(28) ?></h2>
+		</a>
+	</div>
+	<a class="top-entry-title" href="<?php echo $postItem->getPostUrl() ?>"><h2><?php echo $postItem->getPostTitle(28) ?></h2></a>
+	<div class="top-entry-content"><?php echo $postItem->getPostExcerpt(180) ?></div>
+	<div class="clear"></div>
+</article>

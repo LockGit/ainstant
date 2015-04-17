@@ -39,7 +39,7 @@ $(document).ready(function(){
             $('#main').trigger('pjax.end');
         }, 3000);
 
-        //loading_show();
+        loading_show();
     });
     
     var li = $('.nav_header li');
@@ -68,7 +68,7 @@ $(document).ready(function(){
         //fancybox
         //$(".fancybox").fancybox();
         
-        //loading_hide();
+        loading_hide();
        
     });
 
