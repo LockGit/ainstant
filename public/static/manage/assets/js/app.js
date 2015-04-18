@@ -438,13 +438,14 @@ $(function(){
                 ];
 
     if ($('#post-editor').length>0) {
+        upLoadUrl = location.protocol+'//'+location.hostname +'/manage/medialibrary/upload';
         editor = new Simditor({
             textarea: $('#post-editor'),
             toolbar: toolbar,
             defaultImage: '/static/manage/simditor/images/image.png',
             autosave: 'editor-content',
             upload:  {
-                url: '../medialibrary/upload', //上传途径
+                url: upLoadUrl, //上传途径
                 fileKey: 'upload_file', //服务器端获取文件数据的参数名
                 connectionCount: 10, //同时上传文件的最大数量
                 leaveConfirm: '正在上传文件，如果离开上传会自动取消'

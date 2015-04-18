@@ -31,7 +31,7 @@ class MedialibraryController extends ControllerBase
         //  获取结果
         $file_list_page = $paginator->getPaginate();
 
-        $this->view->file_list_page = $file_list_page;
+        $this->view->fileListPage = $file_list_page;
 
         if ($this->request->isAjax()) {
             $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
@@ -57,7 +57,7 @@ class MedialibraryController extends ControllerBase
                 //  获取文件的MD5
                 $filesModels = new Files();
                 $fileInfo = $filesModels->uploadFiles($file);
-                
+               
                 $movePath = $fileInfo['movePath'];
                 $fileUrl = $fileInfo['fileUrl'];
                                                
@@ -75,7 +75,7 @@ class MedialibraryController extends ControllerBase
                     );
                     echo json_encode($jsonReturn);  
                 }
-                             
+                            
             }
         }
 
@@ -87,19 +87,19 @@ class MedialibraryController extends ControllerBase
         $currentPage = $this->request->getQuery("page", "int");
         
         //  查询记录
-        $file_list = Files::find(array("file_type = 1","order" => "upload_time desc"));
+        $fileList = Files::find(array("file_type = 1","order" => "upload_time desc"));
         //  分页适配器
         $paginator = new \Phalcon\Paginator\Adapter\Model(
             array(
-                "data" => $file_list,
+                "data" => $fileList,
                 "limit"=> 24,
                 "page" => $currentPage
             )
         );
         //  获取结果
-        $file_list_page = $paginator->getPaginate();
+        $fileListPage = $paginator->getPaginate();
 
-        $this->view->file_list_page = $file_list_page;
+        $this->view->fileListPage = $fileListPage;
 
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
@@ -121,7 +121,7 @@ class MedialibraryController extends ControllerBase
         //  获取结果
         $file_list_page = $paginator->getPaginate();
 
-        $this->view->file_list_page = $file_list_page;
+        $this->view->fileListPage = $file_list_page;
 
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }

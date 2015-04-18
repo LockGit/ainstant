@@ -28,7 +28,7 @@ class CategoryController extends ControllerBase
             $paginator = new \Phalcon\Paginator\Adapter\NativeArray(
                 array(
                     "data" => $posts,
-                    "limit"=> 2,
+                    "limit"=> 10,
                     "page" => $currentPage
                 )
             );

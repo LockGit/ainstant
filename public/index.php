@@ -26,6 +26,7 @@ class Application extends \Phalcon\Mvc\Application
 		$config = include APP_PATH.'/apps/common/config/config.php';
 		
 		define('APP_URL', $config->site->url);
+		define('APP_IMAGE_URL', $config->site->image_url);
 
 		$di = new \Phalcon\DI\FactoryDefault();
 

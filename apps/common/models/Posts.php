@@ -140,6 +140,7 @@ class Posts extends \Phalcon\Mvc\Model
         return $title_str; 
     } 
 
+    
     public function getPostExcerpt($max_length = 100) 
     { 
         if (empty($this->post_excerpt)) {
@@ -228,7 +229,7 @@ class Posts extends \Phalcon\Mvc\Model
 
 
         $pattern = "/<img(.*?)src=('|\")([^>]*).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-        $replacement = '<img src=$2'.APP_URL.'$3.$4$5 title="'.$title.'" alt="'.$title.'"$6>';
+        $replacement = '<img src=$2'.APP_IMAGE_URL.'$3.$4$5 title="'.$title.'" alt="'.$title.'"$6>';
         $content = preg_replace($pattern, $replacement, $content);
 
         return $content;
@@ -237,7 +238,7 @@ class Posts extends \Phalcon\Mvc\Model
     public function getPostThumbnail($width = 80, $height = 60)
     {
         if (!empty($this->post_picture)) {
-            $imageUrl = APP_URL.$this->files->getThumbnail($width, $height);
+            $imageUrl = APP_IMAGE_URL.$this->files->getThumbnail($width, $height);
         } else {
 
             $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $this->post_content, $matches);  //正则匹配文章中所有图片
@@ -248,11 +249,11 @@ class Posts extends \Phalcon\Mvc\Model
                 $defaultImages = array('1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg');
                 $n = rand(0,count($defaultImages)-1);    
                 $randImage = $defaultImages[$n];
-                $image = APP_URL.'/upload/images/default/'.$randImage;
+                $image = APP_IMAGE_URL.'/upload/images/default/'.$randImage;
                 
                 return '<img src="'.$image.'" alt="'.$this->post_title.'" width="500" height="340" />';
             } else {
-                $imageUrl = APP_URL.$first_img;
+                $imageUrl = APP_IMAGE_URL.$first_img;
             }            
         }
 
@@ -432,7 +433,7 @@ class Posts extends \Phalcon\Mvc\Model
         $original_text = $text;
         $text = $this->chen_strip_all_tags( $text );
         
-        if ( 'characters' == 'word count: words or characters?' && preg_match( '/^utf\-?8$/i', 'utf-8' ) ) {
+        if ( preg_match( '/^utf\-?8$/i', 'utf-8' ) ) {
             $text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
             preg_match_all( '/./u', $text, $words_array );
             $words_array = array_slice( $words_array[0], 0, $num_words + 1 );
@@ -461,6 +462,7 @@ class Posts extends \Phalcon\Mvc\Model
 
         return trim( $string );
     }
+    
 
 
 }

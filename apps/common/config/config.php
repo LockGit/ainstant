@@ -8,7 +8,8 @@ return new \Phalcon\Config(array(
 
     'site' => array(
         'name'      => '一刻',
-        'url'       => ''
+        'url'       => 'http://localhost',  //  网站域名(不带‘/’)
+        'image_url' => 'http://localhost'   //  图片域名(不带‘/’)
     ),
     //数据库
     'database'    => array(
@@ -22,8 +23,8 @@ return new \Phalcon\Config(array(
     //应用信息
     'manage' => array(
         'development'    => array(
-            'staticBaseUri' => '/static/',
-            'baseUri'       => '/manage/'
+            'staticBaseUri' => 'http://localhost/static/',
+            'baseUri'       => 'http://localhost/manage/'
         ),
         'production'     => array(
             'staticBaseUri' => 'http://example.com/',
@@ -35,8 +36,8 @@ return new \Phalcon\Config(array(
     //应用信息
     'frontend' => array(
         'development'    => array(
-            'staticBaseUri' => '/static/',
-            'baseUri'       => '/'
+            'staticBaseUri' => 'http://localhost/static/',
+            'baseUri'       => 'http://localhost/'
         ),
         'production'     => array(
             'staticBaseUri' => 'http://example.com/',

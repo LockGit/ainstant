@@ -42,6 +42,7 @@ use \Phalcon\Mvc\User\Component;
         $current = $page->current;
         $before = $page->before;
         $next = $page->next;
+        $last = $page->last;
 
         echo '<div class="prev-next">';
             if ($current != $before) {

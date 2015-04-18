@@ -4,7 +4,7 @@
 <div id="media-picture-list">
     <ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list" id="media-picture-list-ul">
 
-        <?php foreach ($file_list_page->items as $picture) { ?>
+        <?php foreach ($fileListPage->items as $picture) { ?>
             <li>
                 <a>
                     <img class="am-img-thumbnail" src="<?php echo $picture->getThumbnail(720,500) ?>" width="720" height="500"/>
@@ -16,8 +16,15 @@
     
     <div class="am-margin am-cf media-picture-next">
         <hr/>
-        <?php if (!empty($file_list_page->next)) { ?>
-            <a href="/manage/medialibrary/index?page=<?php echo $file_list_page->next ?>" current="<?php echo $file_list_page->current ?>" last="<?php echo $file_list_page->last ?>" class="am-btn am-btn-success am-btn-block">查看更多...</a>
-        <?php } ?>
+        <?php   $currentPage = $fileListPage->current;
+                $nextPage = $fileListPage->next;
+                $lastPage = $fileListPage->last;
+
+            if ($lastPage == $currentPage) {
+                echo '<a href="#" class="am-btn am-btn-danger am-btn-block am-disabled">没有更多了！</a>';
+            } else {
+                echo $this->tag->linkTo(array('medialibrary/index?page='.$nextPage, '查看更多...', 'class' => 'am-btn am-btn-success am-btn-block', 'current' => $currentPage, 'last' => $lastPage));
+            }
+            ?>  
     </div>
 </div>

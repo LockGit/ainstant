@@ -20,7 +20,7 @@ class IndexController extends ControllerBase
         $paginator = new \Phalcon\Paginator\Adapter\Model(
             array(
                 "data" => $postFind,
-                "limit"=> 3,
+                "limit"=> 10,
                 "page" => $currentPage
             )
         );

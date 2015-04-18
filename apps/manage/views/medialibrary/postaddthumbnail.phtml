@@ -1,7 +1,7 @@
 <div id="post-thumbnail-list">
 	<ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin-sm gallery-list am-scrollable-vertical" id="post-thumbnail-list-ul">
 
-		<?php foreach ($file_list_page->items as $picture) { ?>
+		<?php foreach ($fileListPage->items as $picture) { ?>
 		    <li>
 		        <a>
 		            <img class="am-img-thumbnail" src="<?php echo $picture->getThumbnail(720,500) ?>" width="720" height="500" picture-id="<?php echo $picture->id ?>" />
@@ -18,9 +18,16 @@
 				<a href=""class="am-btn am-btn-success am-btn-block am-btn-sm" id="post-thumbnail-close">关闭</a>
 			</div>
 	  		<div class="am-u-lg-4 am-u-md-4 am-u-sm-4 post-thumbnail-next">
-	  			<?php if (!empty($file_list_page->next)) { ?>
-            		<a href="/manage/medialibrary/postaddthumbnail?page=<?php echo $file_list_page->next ?>" current="<?php echo $file_list_page->current ?>" last="<?php echo $file_list_page->last ?>" class="am-btn am-btn-success am-btn-block am-btn-sm">查看更多...</a>
-        		<?php } ?>
+	  			<?php  	$currentPage = $fileListPage->current;
+	  					$nextPage = $fileListPage->next;
+	  					$lastPage = $fileListPage->last;
+
+	  				if ($lastPage == $currentPage) {
+	  					echo '<a href="#" class="am-btn am-btn-danger am-btn-block am-disabled am-btn-sm">没有更多了！</a>';
+	  				} else {
+	  					echo $this->tag->linkTo(array('medialibrary/postaddthumbnail?page='.$nextPage, '查看更多...', 'class' => 'am-btn am-btn-success am-btn-block am-btn-sm', 'current' => $currentPage, 'last' => $lastPage));
+	  				}
+	  				?>	  			
 	  		</div>
 	  		<div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
 	  			<a href=""class="am-btn am-btn-success am-btn-block am-btn-sm" id="post-thumbnail-append">添加</a>

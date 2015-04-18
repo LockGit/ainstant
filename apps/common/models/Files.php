@@ -142,7 +142,7 @@ class Files extends \Phalcon\Mvc\Model
 
     public function uploadFiles($file)
     {
-        $fileMd5 = md5_file($file);
+        $fileMd5 = md5_file($file->getTempName());
         $flieName = $file->getName();
         //  获取文件后缀
         $fileSuffix = $this->fileSuffix($flieName);
@@ -161,7 +161,7 @@ class Files extends \Phalcon\Mvc\Model
         if ( in_array($fileSuffix, $imageSuffix)) {
             $fileCatalog = 'images';
             $fileTypeId = '1';
-            $imageSize = getimagesize($file);
+            $imageSize = getimagesize($file->getTempName());
         } else {
             $fileCatalog = 'files';
             $fileTypeId = '2';
@@ -183,7 +183,7 @@ class Files extends \Phalcon\Mvc\Model
             }
         }
                 
-        $file_find = Files::findFirst(array("file_md5 = '$fileMd5'"));
+        $file_find = self::findFirst(array("file_md5 = '$fileMd5'"));
 
         if ($file_find != false) {
             $fileUrl = $file_find->file_url;

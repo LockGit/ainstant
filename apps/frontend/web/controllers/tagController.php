@@ -13,7 +13,8 @@ class tagController extends ControllerBase
 
     public function indexAction()
     {
-    	$currentPage = $this->request->getQuery("page", "int");
+        
+        $currentPage = $this->request->getQuery("page", "int");
 
         $TagName = urldecode( $this->dispatcher->getParam("tag") );
         $TagFind = Tags::findFirst(array("tagtitle = '$TagName'"));
