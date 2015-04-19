@@ -642,12 +642,65 @@ blockquote {
 	color:#888;
 	background: #eee;
 }
-.same-cat-post li h4 a{
+
+/* 相关文章 */
+.related-post-container {
 	display:block;
-	font-size:14px;
-	padding:7px 0 4px 10px;
+	-font-size:14px;
+	padding-bottom: 5px;
 	border-bottom:1px dashed #ddd
 }
+
+.related-post {
+	margin-top:5px;
+	padding:5px 0 0 0;
+	border-top:1px dashed #ddd;
+	min-height:60px
+}
+.related-post h4 {
+	font-size:14px;
+	margin:0 0 5px 0
+}
+.related-post h4 a {
+	color:#333;
+}
+.related-post h4 a:hover {
+	color: rgba(255,153,0,1);
+	text-decoration:none
+}
+.related-post-thumb {
+	float:left;
+	display:inline-block;
+	overflow:hidden
+}
+.related-post-thumb a {
+	display:inline-block;
+	padding:1px;
+	height:57px
+}
+.related-post-thumb a img {
+	width:80px;
+	height:57px
+}
+.related-post-body {
+	color:#888;
+	width:auto;
+	padding-left:93px
+}
+.related-post-meta a {
+	color:#888
+}
+.related-post-meta a:hover {
+	color:#6ba82f
+}
+.related-post-meta span {
+	margin-right: 10px; 
+}
+.related-post-meta span i {
+	margin-right: 5px;
+}
+
+
 .ds-powered-by{
 	display:none
 }

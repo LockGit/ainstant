@@ -20,16 +20,16 @@ use \Phalcon\Mvc\User\Component;
         
         echo '<div id="crumbs">你在这里 : ';
         if ($controllerName == 'index') {
-            echo '首页';
+            echo '<a href="'.APP_URL.'">首页</a>';
         }
         if ($controllerName == 'category') {
-            echo '首页 -> 分类 -> '.$crumbName;
+            echo '<a href="'.APP_URL.'">首页</a> -> 分类 -> '.$crumbName;
         }
         if ($controllerName == 'tag') {
-            echo '首页 -> 标签 -> '.$crumbName;
+            echo '<a href="'.APP_URL.'">首页</a> -> 标签 -> '.$crumbName;
         }
         if ($controllerName == 'post') {
-            echo '首页 -> 阅读 -> '.$crumbName;
+            echo '<a href="'.APP_URL.'">首页</a> -> 阅读 -> '.$crumbName;
         }
 
         echo '</div>';

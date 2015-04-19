@@ -28,6 +28,8 @@ class IndexController extends ControllerBase
         $this->view->postsList = $paginator->getPaginate();
 
         $this->tag->appendTitle('最美好的那一刻');
+        $this->view->pageDescription = $this->di->get('config')->site->description;
+        $this->view->pageKeywords = $this->di->get('config')->site->keywords;
 
     }
 

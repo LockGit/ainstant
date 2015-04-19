@@ -37,6 +37,8 @@ class CategoryController extends ControllerBase
             $this->view->crumbName = $CategoryName;
 
             $this->tag->appendTitle($CategoryName);
+            $this->view->pageDescription = ($CategoryName == $CategoryFind->description) ? '关于'.$CategoryName.'的文章分类' : $CategoryFind->description;
+            $this->view->pageKeywords = $CategoryName;
         
         } else {
             return $this->forward('errors/show404');

@@ -54,14 +54,14 @@ class Module
 		 */
 		$di->set(
 		    'url',
-		    function () use ($config) {
+		    function () use ($di) {
 		        $url = new \Phalcon\Mvc\Url();
-		        if (!$config->manage->debug) {
-		            $url->setBaseUri($config->manage->production->baseUri);
-		            $url->setStaticBaseUri($config->manage->production->staticBaseUri);
+		        if (!$di->get('config')->manage->debug) {
+		            $url->setBaseUri($di->get('config')->manage->production->baseUri);
+		            $url->setStaticBaseUri($di->get('config')->manage->production->staticBaseUri);
 		        } else {
-		            $url->setBaseUri($config->manage->development->baseUri);
-		            $url->setStaticBaseUri($config->manage->development->staticBaseUri);
+		            $url->setBaseUri($di->get('config')->manage->development->baseUri);
+		            $url->setStaticBaseUri($di->get('config')->manage->development->staticBaseUri);
 		        }
 		    return $url;
 		});

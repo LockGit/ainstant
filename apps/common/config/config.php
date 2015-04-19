@@ -7,9 +7,11 @@
 return new \Phalcon\Config(array(
 
     'site' => array(
-        'name'      => '一刻',
-        'url'       => 'http://localhost',  //  网站域名(不带‘/’)
-        'image_url' => 'http://localhost'   //  图片域名(不带‘/’)
+        'name'          => '一刻',
+        'description'   => '12333',
+        'keywords'      => '456',
+        'url'           => 'http://localhost',  //  网站域名(不带‘/’)
+        'image_url'     => 'http://localhost'   //  图片域名(不带‘/’)
     ),
     //数据库
     'database'    => array(

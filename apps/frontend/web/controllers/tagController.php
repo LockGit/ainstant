@@ -12,8 +12,7 @@ class tagController extends ControllerBase
     }
 
     public function indexAction()
-    {
-        
+    {       
         $currentPage = $this->request->getQuery("page", "int");
 
         $TagName = urldecode( $this->dispatcher->getParam("tag") );
@@ -42,6 +41,8 @@ class tagController extends ControllerBase
             $this->view->crumbName = $TagName;
 
             $this->tag->appendTitle($TagName);
+            $this->view->pageDescription = ($TagName == $TagFind->description) ? '关于'.$TagName.'的文章分类' : $TagFind->description;
+            $this->view->pageKeywords = $TagName;
         
         } else {
             return $this->forward('errors/show404');

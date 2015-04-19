@@ -3,6 +3,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<?php echo $this->tag->getTitle(); ?>
+	<?php 
+		if(!empty($pageDescription)) {
+			echo '<meta name="description" content="'.$pageDescription.'" />';
+		}
+		if(!empty($pageKeywords)) {
+			echo '<meta name="keywords" content="'.$pageKeywords.'" />';
+		}
+		?>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
 	<meta http-equiv="Cache-Control" content="no-siteapp" />

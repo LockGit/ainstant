@@ -37,9 +37,13 @@
 		
 		<div class="post-bottom">
 			<div class="section_title border-left">相关文章</div>
-			<ul class="same-cat-post">
-				<?php //include('includes/related.php'); ?>
-			</ul>
+			<div class="related-post-container">
+				<?php 
+					foreach ($post->getRelatedPost() as $postItem) {
+						$this->partial("postList/relatedPostA");
+					}
+					?>
+			</div>
 			<div style="display:none">
 				<div id="wumiiDisplayDiv"></div>
 			</div>

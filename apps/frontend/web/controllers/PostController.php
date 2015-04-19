@@ -26,7 +26,9 @@ class PostController extends ControllerBase
 
         $this->view->crumbName = $post->getPostTitle(20);
         
-        $this->tag->prependTitle($post->getPostTitle(20));       
+        $this->tag->prependTitle($post->getPostTitle(20));
+        $this->view->pageDescription = (!empty($post->post_description)) ? $post->post_description : $post->getPostExcerpt();
+        $this->view->pageKeywords = (!empty($post->post_keywords)) ? $post->post_keywords : $post->getPostTag().','.$post->getPostCategory();       
 
     }
 

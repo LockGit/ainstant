@@ -1,0 +1,14 @@
+<article class="related-post">
+	<div class="related-post-thumb">
+		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(30) ?>">
+			<?php echo $postItem->getPostThumbnail(140,100) ?>
+		</a>
+	</div>
+	<div class="related-post-body">
+		<h4 class="related-post-title"><a href="<?php echo $postItem->getPostUrl() ?>" rel="bookmark"><?php echo $postItem->getPostTitle(28) ?></a></h4>
+		<div class="related-post-meta">
+			<span><i class="fa fa-th fa-fw"></i><?php echo $postItem->getPostCategoryLink() ?></span>
+			<span><?php echo $postItem->getPostView() ?>℃</span>
+		</div>
+	</div>
+</article>

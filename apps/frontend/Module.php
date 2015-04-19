@@ -45,7 +45,7 @@ class Module
 	 */
 	public function registerServices($di)
 	{
-		$config = include APP_PATH.'/apps/common/config/config.php';
+		//$config = include APP_PATH.'/apps/common/config/config.php';
 
 		$di->set('dispatcher', function() use ($di) {
 
@@ -78,14 +78,14 @@ class Module
 		 */
 		$di->set(
 		    'url',
-		    function () use ($config) {
+		    function () use ($di) {
 		        $url = new \Phalcon\Mvc\Url();
-		        if (!$config->frontend->debug) {
-		            $url->setBaseUri($config->frontend->production->baseUri);
-		            $url->setStaticBaseUri($config->frontend->production->staticBaseUri);
+		        if (!$di->get('config')->frontend->debug) {
+		            $url->setBaseUri($di->get('config')->frontend->production->baseUri);
+		            $url->setStaticBaseUri($di->get('config')->frontend->production->staticBaseUri);
 		        } else {
-		            $url->setBaseUri($config->frontend->development->baseUri);
-		            $url->setStaticBaseUri($config->frontend->development->staticBaseUri);
+		            $url->setBaseUri($di->get('config')->frontend->development->baseUri);
+		            $url->setStaticBaseUri($di->get('config')->frontend->development->staticBaseUri);
 		        }
 		    return $url;
 		});
@@ -155,3 +155,4 @@ class Module
 }
 
 //new Content;
+//echo $this->di->get('config')->site->description;
