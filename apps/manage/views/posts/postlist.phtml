@@ -54,17 +54,17 @@
             <a href="#" id="post-index-page">首页</a>
         <?php } ?>
 
-        <?php if ($before != $current) { ?>
+        <?php if ($current != $before) { ?>
             <a href="#" id="post-prev-page" page="<?php echo $before ?>">上一页</a>
         <?php } ?>
 
         <span class="current-nav" id="post-current-page" page="<?php echo $current ?>"><?php echo $current ?></span>
         
-        <?php if ($next != $current) { ?>
+        <?php if ($current != $next) { ?>
             <a href="#" id="post-next-page" page="<?php echo $next ?>">下一页</a>
         <?php } ?>
         
-        <?php if ($last != $current) { ?>
+        <?php if ($current != $last) { ?>
             <a href="#" id="post-last-page" page="<?php echo $last ?>">末页</a>
         <?php } ?>
         

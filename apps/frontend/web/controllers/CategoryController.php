@@ -2,6 +2,7 @@
 namespace Chen\Frontend\Web\Controllers;
 
 use Chen\Models\Categorys;
+use Chen\Models\PostsCategorys;
 
 class CategoryController extends ControllerBase
 {
@@ -19,6 +20,9 @@ class CategoryController extends ControllerBase
         $CategoryFind = Categorys::findFirst(array("cattitle = '$CategoryName'"));
 
         if ($CategoryFind != false) {
+            
+            //$categoryId = $CategoryFind->id;
+            //$catPostCount = PostsCategorys::count(array("categorys_id = '$categoryId'"));
             
             $posts = array();
             foreach ($CategoryFind->getPostsCategorys(array("order" => "id DESC")) as $PostsCategorys) {
