@@ -1,7 +1,7 @@
 /*!
-* Simditor v2.1.7
+* Simditor v2.1.9
 * http://simditor.tower.im/
-* 2015-11-04
+* 2015-28-04
 */
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -13,7 +13,7 @@
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
-    module.exports = factory(require("jquery"),require("simple-module"),require("simple-hotkeys"),require("simple-uploader"));
+    module.exports = factory(require("jquery"),require("simplemodule"),require("simple-hotkeys"),require("simple-uploader"));
   } else {
     root['Simditor'] = factory(jQuery,SimpleModule,simple.hotkeys,simple.uploader);
   }
@@ -2097,7 +2097,7 @@ Indentation = (function(superClass) {
       indentLevel = $blockEl.attr('data-indent') || 0;
       indentLevel = Math.min(indentLevel * 1 + 1, 10);
       $blockEl.attr('data-indent', indentLevel);
-    } else if ($blockEl.is('table')) {
+    } else if ($blockEl.is('table') || $blockEl.is('.simditor-table')) {
       range = this.editor.selection.getRange();
       $td = $(range.commonAncestorContainer).closest('td');
       $nextTd = $td.next('td');
@@ -2165,7 +2165,7 @@ Indentation = (function(superClass) {
         indentLevel = 0;
       }
       $blockEl.attr('data-indent', indentLevel);
-    } else if ($blockEl.is('table')) {
+    } else if ($blockEl.is('table') || $blockEl.is('.simditor-table')) {
       range = this.editor.selection.getRange();
       $td = $(range.commonAncestorContainer).closest('td');
       $prevTd = $td.prev('td');
