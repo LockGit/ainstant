@@ -1,0 +1,48 @@
+<header id="nav">
+	<ul class="nav-ul"><li><a id="logo" href="<?php echo APP_URL ?>"></a></li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_explor')">分类<span></span></a>
+			<div class="submenu" id="nav_explor">
+				<ul class="cat_ul">
+					<?php foreach($categorys->getCategorys() as $category ) { 
+						echo '<li>'.$category.'</li>';
+						} ?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_tags')">标签<span></span></a>
+			<div class="submenu" id="nav_tags">
+				<div>
+					<?php foreach($tags->getTags() as $tag ) { 
+						echo $tag;
+						} ?>
+				</div>
+			</div>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_follow')">关注<span></span></a>
+			<ul class="submenu" id="nav_follow">
+				<!-- <li class="first"><a target="_blank" href="http://weibo.com/c8023.com/" rel="nofllow">新浪微博</a></li>
+				<li><a target="_blank" href="http://t.qq.com/http://t.qq.com/c8023huixi" rel="nofllow">腾讯微博</a></li> -->
+				<li><a target="_blank" href="http://c8023.com/feed">RSS订阅</a></li>
+			</ul>
+		</li>
+		<li class="dropdownlink">
+			<a target="_blank" onClick="showSubmenu('nav_more')">更多<span></span></a>
+			<ul class="submenu" id="nav_more">
+				<li class="submenu_div">各种传送门：</li>
+				<li><a href="<?php //echo home_url( '/' ); ?>archive">文章归档</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>comments">留言板</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>about">关于我们</a></li>
+				<li><a href="<?php //echo home_url( '/' ); ?>sitemap.html">站点地图</a></li>
+			</ul>
+		</li>
+		<li class="dropdownlink"><a onClick="showSubmenu('nav_search')">搜索<span></span></a>
+			<div class="submenu" id="nav_search">
+				<form method="get" id="searchform" action="<?php echo APP_URL ?>/search">
+				<input type="text" name="s" id="searchinput" value="搜索..." onfocus="this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;){this.value=&#39;搜索...&#39;;}"> 
+				<input type="submit" id="searchbtn" class="cbg" value="搜 索">
+			</form>
+			</div>
+		</li>
+	</ul>
+</header>

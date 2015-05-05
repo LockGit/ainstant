@@ -1,14 +1,15 @@
-<article class="related-post">
-	<div class="related-post-thumb">
-		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(30) ?>">
+<article class="related-style-a">
+	<div class="related-style-a-thumb">
+		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(28) ?>">
 			<?php echo $postItem->getPostThumbnail(140,100) ?>
 		</a>
 	</div>
-	<div class="related-post-body">
-		<h4 class="related-post-title"><a href="<?php echo $postItem->getPostUrl() ?>" rel="bookmark"><?php echo $postItem->getPostTitle(28) ?></a></h4>
-		<div class="related-post-meta">
+	<div class="related-style-a-content">
+		<h2 class="related-style-a-title"><a href="<?php echo $postItem->getPostUrl() ?>"><?php echo $postItem->getPostTitle(28) ?></a></h2>
+		<div class="related-style-a-meta">
 			<span><i class="fa fa-th fa-fw"></i><?php echo $postItem->getPostCategoryLink() ?></span>
 			<span><?php echo $postItem->getPostView() ?>℃</span>
 		</div>
 	</div>
+	<div class="chen-cf"></div>
 </article>

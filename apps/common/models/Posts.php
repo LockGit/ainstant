@@ -5,7 +5,6 @@ use \Phalcon\Tag;
 use \Phalcon\Mvc\Model\Query;
 //use Chen\Plugins\ChenHookPlugin;
 
-//文章
 class Posts extends \Phalcon\Mvc\Model
 {
 	/**
@@ -57,10 +56,10 @@ class Posts extends \Phalcon\Mvc\Model
     public $post_author;
 
      /**
-     * @var string
+     * @var int
      *      浏览次数
      */
-    public $post_viewcount;
+    //public $post_viewcount;
 
     /**
      * @var string
@@ -104,6 +103,9 @@ class Posts extends \Phalcon\Mvc\Model
         ));
         $this->hasOne('post_picture', 'Chen\Models\Files', 'id',array(
             'alias' => 'files'
+        ));
+        $this->hasOne('id', 'Chen\Models\PostsViews', 'post_id',array(
+            'alias' => 'postsviews'
         ));
         $this->hasOne('post_author', 'Chen\Models\Users', 'id',array(
             'alias' => 'users'
@@ -157,17 +159,17 @@ class Posts extends \Phalcon\Mvc\Model
         return $this->getTypes()->typetitle;
     }
     
-    public function getPostCategory() 
+    public function getPostCategory($glue = ',') 
     {
         $categorys = array();
         foreach ($this->getPostsCategorys() as $PostsCategory) {
             $category = $PostsCategory->getCategorys();
             $categorys[] = $category->cattitle;
         }
-        return implode(' , ',$categorys);
+        return implode(' '.$glue.' ', $categorys);
     }
     
-    public function getPostCategoryLink() 
+    public function getPostCategoryLink($glue = ',') 
     {
         $categorys = array();
         foreach ($this->getPostsCategorys() as $PostsCategory) {
@@ -176,20 +178,20 @@ class Posts extends \Phalcon\Mvc\Model
             $categoryUrl = urlencode($categoryName);
             $categorys[] = Tag::linkTo(array('category/'.$categoryUrl, $categoryName));
         }
-        return implode(' , ',$categorys);
+        return implode(' '.$glue.' ', $categorys);
     }
     
-    public function getPostTag() 
+    public function getPostTag($glue = ',') 
     {
         $tags = array();
         foreach ($this->getPostsTags() as $TagsCategory) {
             $tag = $TagsCategory->getTags();
             $tags[] = $tag->tagtitle;
         }
-        return implode(' , ',$tags);
+        return implode(' '.$glue.' ', $tags);
     }
     
-    public function getPostTagLink() 
+    public function getPostTagLink($glue = ',') 
     {
         $tags = array();
         foreach ($this->getPostsTags() as $TagsCategory) {
@@ -198,22 +200,47 @@ class Posts extends \Phalcon\Mvc\Model
             $tagUrl = urlencode($tagName);
             $tags[] = Tag::linkTo(array('tag/'.$tagUrl, $tagName));
         }
-        return implode(' , ',$tags);
+        return implode(' '.$glue.' ', $tags);
     }
     
     public function getPostView() 
-    {       
-                
-        $viewcount = $this->post_viewcount;
-        return $viewcount;
+    {                       
+        
+        $postViewCount = $this->getPostsViews();
+
+        if ($postViewCount != false) {
+            $count = $postViewCount->post_view;
+        } else {
+            $postView = new PostsViews();
+            $postView->post_id = $this->id;
+            if($postView->save() != false){
+                $count = $postView->post_view;
+            }
+        }
+
+        if (empty($count)) {
+            return 0;
+        } else {
+            return $count;
+        }
+
     }
 
     public function setPostView()
-    {       
-        $this->skipAttributes(array('update_time','publish_time'));        
-        $viewcount = $this->post_viewcount;
-        $this->post_viewcount = $viewcount + 1;
-        $this->save();
+    {        
+        $postViewCount = $this->getPostsViews();
+
+        if ($postViewCount != false) {
+            $postView = new PostsViews();
+            $postView->id = $postViewCount->id;
+            $postView->post_view = $postViewCount->post_view + 1;
+            $postView->save();
+        } else {
+            $postView = new PostsViews();
+            $postView->post_id = $this->id;
+            $postView->save();
+        }
+        
     }
 
     public function getContent()
@@ -302,7 +329,7 @@ class Posts extends \Phalcon\Mvc\Model
         foreach ($this->getPostsTags() as $postsTags) {
             $tag = $postsTags->getTags();
             foreach ($tag->getPostsTags() as $postsTags) {
-                $getPost = $postsTags->getPosts();
+                $getPost = $postsTags->getPosts(array('columns' => 'id'));
                 if ($getPost != false) {
                     $postId[] = $getPost->id; 
                 } 
@@ -318,7 +345,7 @@ class Posts extends \Phalcon\Mvc\Model
             foreach ($this->getPostsCategorys() as $PostsCategory) {
                 $cat = $PostsCategory->getCategorys();
                 foreach ($cat->getPostsCategorys() as $PostsCategory) {
-                    $getPost = $PostsCategory->getPosts();
+                    $getPost = $PostsCategory->getPosts(array('columns' => 'id'));
                     if ($getPost != false) {
                         $postId2[] = $getPost->id; 
                     } 
@@ -405,7 +432,7 @@ class Posts extends \Phalcon\Mvc\Model
         return $posts;
     }
 
-    public function getPhql()
+    public function getPage()
     {   
 
         //$query = new Query("SELECT id FROM Chen\Models\Posts", $this->getDI());
@@ -416,10 +443,9 @@ class Posts extends \Phalcon\Mvc\Model
         //    $postId[] = $post->id;
         //}
         //$posts = self::findFirst(array('7', 'columns' => 'id'));
-        //$posts = self::find();
+        $posts = self::find(array("order" => "id DESC", "limit" => array(3, 6)));
 
-        //return $posts;
-        return $this->files->getThumbnail(200,150);
+        return __CLASS__;
     }
 
     public function getPostCount()
@@ -462,7 +488,5 @@ class Posts extends \Phalcon\Mvc\Model
 
         return trim( $string );
     }
-    
-
 
 }

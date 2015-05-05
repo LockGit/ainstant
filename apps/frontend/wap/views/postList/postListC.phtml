@@ -1,0 +1,20 @@
+<article class="list-style-c">
+	<div class="list-style-c-thumb">
+		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(28) ?>">
+			<?php echo $postItem->getPostThumbnail(520,245) ?>
+		</a>
+	</div>
+	<div class="list-style-c-content">
+		<h2 class="list-style-c-title"><a href="<?php echo $postItem->getPostUrl() ?>"><?php echo $postItem->getPostTitle(28) ?></a>
+		</h2>
+		<div class="list-style-c-excerpt">
+			<p><?php echo $postItem->getPostExcerpt(80) ?></p>
+		</div>
+		<div class="list-style-c-meta">
+			<span><i class="fa fa-th fa-fw"></i><?php echo $postItem->getPostCategoryLink('/') ?></span>
+			<span><?php echo $postItem->getPostView() ?>℃</span>
+			<span><?php echo $postItem->getPublishedDate() ?></span>
+		</div>
+	</div>
+	<div class="chen-cf"></div>
+</article>

@@ -38,76 +38,62 @@
 	<?php echo $this->tag->stylesheetLink('common/Font-Awesome/css/font-awesome.css'); ?>
 </head>
 <body>
-<header id="nav">
-	<ul class="nav-ul"><li><a id="logo" href="<?php echo APP_URL ?>"></a></li>
-		<li class="dropdownlink"><a onClick="showSubmenu('nav_explor')">分类<span></span></a>
-			<div class="submenu" id="nav_explor">
-				<ul class="cat_ul">
-					<?php foreach($categorys->getCategorys() as $category ) { 
-						echo '<li>'.$category.'</li>';
-						} ?>
-				</ul>
-				<div class="clear"></div>
-			</div>
-		</li>
-		<li class="dropdownlink"><a onClick="showSubmenu('nav_tags')">标签<span></span></a>
-			<div class="submenu" id="nav_tags">
-				<div>
-					<?php foreach($tags->getTags() as $tag ) { 
-						echo $tag;
-						} ?>
-				</div>
-			</div>
-		</li>
-		<li class="dropdownlink"><a onClick="showSubmenu('nav_follow')">关注<span></span></a>
-			<ul class="submenu" id="nav_follow">
-				<!-- <li class="first"><a target="_blank" href="http://weibo.com/c8023.com/" rel="nofllow">新浪微博</a></li>
-				<li><a target="_blank" href="http://t.qq.com/http://t.qq.com/c8023huixi" rel="nofllow">腾讯微博</a></li> -->
-				<li><a target="_blank" href="http://c8023.com/feed">RSS订阅</a></li>
-			</ul>
-		</li>
-		<li class="dropdownlink">
-			<a target="_blank" onClick="showSubmenu('nav_more')">更多<span></span></a>
-			<ul class="submenu" id="nav_more">
-				<li class="submenu_div">各种传送门：</li>
-				<li><a href="<?php //echo home_url( '/' ); ?>archive">文章归档</a></li>
-				<li><a href="<?php //echo home_url( '/' ); ?>comments">留言板</a></li>
-				<li><a href="<?php //echo home_url( '/' ); ?>about">关于我们</a></li>
-				<li><a href="<?php //echo home_url( '/' ); ?>sitemap.html">站点地图</a></li>
-			</ul>
-		</li>
-		<li class="dropdownlink"><a onClick="showSubmenu('nav_search')">搜索<span></span></a>
-			<div class="submenu" id="nav_search">
-				<form method="get" id="searchform" action="<?php //echo get_option('home'); ?>">
-				<input type="text" name="s" id="searchinput" value="搜索..." onfocus="this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;){this.value=&#39;搜索...&#39;;}"> 
-				<input type="submit" id="searchbtn" class="cbg" value="搜 索">
-			</form>
-			</div>
-		</li>
-	</ul>
-</header>
-<div class="clear"></div> 
+<!-- <header id="nav">
+	
+</header>  -->
 
-<div id="container">
+<div class="container">
 
-<?php echo $this->getContent(); ?>
+	<?php echo $this->getContent(); ?>
 
 </div>
-<div class="clear"></div><!-- #container -->
+<!-- #container -->
 
-<footer id="footer">
+<!-- <footer id="footer">
 	<div id="footer-body">
 		<div id="footer-content">
 			Copyright &copy; <?php echo date('Y'); ?> <a href="<?php echo APP_URL ?>" rel="home"><?php //bloginfo( 'name' ); ?></a>
 		</div>
 	</div>
-</footer>
-<div class="clear"></div>
+</footer> -->
+
+<nav class="bottom-nav">
+	<ul class="bottom-nav-ul">
+		<li class="bottom-nav-ul-li"><a href="<?php echo APP_URL ?>">首页</a></li>
+		<li class="bottom-nav-ul-li">
+			<a href="#" class="submenu">分类</a>
+			<div class="bottom-nav-explor bottom-nav-cat">
+				<ul class="cat_ul">
+					<?php foreach($categorys->getCategorys() as $category ) { 
+						echo '<li>'.$category.'</li>';
+						} ?>
+				</ul>
+			</div>
+		</li>
+		<li class="bottom-nav-ul-li">
+			<a href="#" class="submenu">标签</a>
+			<div class="bottom-nav-explor bottom-nav-tag">
+				<?php foreach($tags->getTags() as $tag ) { 
+						echo $tag;
+					} ?>
+			</div>
+		</li>
+		<li class="bottom-nav-ul-li">
+			<a href="#" class="submenu">更多</a>
+			<div class="bottom-nav-explor bottom-nav-more">
+				<a href="<?php //echo home_url( '/' ); ?>about">关于我们</a>
+				<a href="<?php //echo home_url( '/' ); ?>sitemap.html">站点地图</a>
+			</div>
+		</li>
+		<li class="bottom-nav-ul-li">
+			<a href="#" class="submenu">搜索</a>
+			<div class="bottom-nav-explor bottom-nav-search"></div>
+		</li>
+	</ul>
+</nav>
+
 <?php echo $this->tag->javascriptInclude('wap/script/jquery.min.js'); ?>
 <?php echo $this->tag->javascriptInclude('wap/script/mobile.js'); ?>
-<div style="display:none">
-			
-</div>
 
 </body>
 </html>

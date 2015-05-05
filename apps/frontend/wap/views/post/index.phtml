@@ -1,13 +1,22 @@
-<div class="post">
+<div id="content">
 	<?php $post->setPostView() ?>
-	<h1 id="post-title" class="border-left"><?php echo $post->getPostTitle() ?></h1>
-		<div class="post_content">
+		<div class="post-title post-title-background">
+			<h1>
+				<?php echo $post->getPostTitle(50) ?>
+			</h1>
+			<div class="post-title-detail">
+				<span><i class="fa fa-th fa-fw"></i><?php echo $post->getPostCategoryLink() ?></span>
+				<span><?php echo $post->getPostView() ?>℃</span>
+				<span><?php echo $post->getPublishedDate() ?></span>
+			</div>
+		</div>
+		<div class="post-content">
 			<?php echo $post->getContent() ?>
 		</div>
 		<div class="clear"></div>
 		<div class="post-bottom">
-			<div class="section_title border-left">关于本文</div>
-			<div class="post_detail">
+			<div class="section-title post-title-background">关于本文</div>
+			<div class="post-detail">
 				<ul>
 					<li>属于分类：<span id="post_category"><?php echo $post->getPostTagLink() ?></li>
 					<li>本文标签：<?php echo $post->getPostCategoryLink() ?></li>
@@ -36,7 +45,7 @@
 		</div>
 		
 		<div class="post-bottom">
-			<div class="section_title border-left">相关文章</div>
+			<div class="section-title post-title-background">相关文章</div>
 			<div class="related-post-container">
 				<?php 
 					foreach ($post->getRelatedPost() as $postItem) {
@@ -44,13 +53,8 @@
 					}
 					?>
 			</div>
-			<div style="display:none">
-				<div id="wumiiDisplayDiv"></div>
-			</div>
 		</div>
-		<div id="comments">
-			<div class="section_title border-left">各种回音</div>
-			<?php //comments_template(); ?>
-		</div><!-- #comments -->
+
+		<div class="post-footer"></div>
 
 </div>

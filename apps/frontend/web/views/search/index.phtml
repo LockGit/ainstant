@@ -1,0 +1,24 @@
+<div class="main" id="main">
+	<?php echo $this->elements->getBreadCrumb(); ?>
+	<div class="content">
+		<div class="home-content">
+			<!-- postTopNav -->
+			<?php echo $this->elements->getSearchTopNav($posts_list, $search); ?>
+			<!-- postTopNav -->
+			<!-- postList -->
+			<?php $this->partial("postList/postListA") ?>
+			<!-- postList -->
+			<!-- postNav -->
+			<?php echo $this->elements->getSearchNav($posts_list, $search); ?>
+			<!-- postNav -->
+		</div>
+	</div>
+	<!-- sidebar -->
+	<aside class="sidebar">
+		<?php $this->partial("sidebar/sidebarA") ?>
+	</aside>
+	<!-- sidebar -->
+	<div class="clear"></div>
+
+</div>
+<!--end main-->	

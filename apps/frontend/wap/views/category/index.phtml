@@ -1,17 +1,10 @@
-<div id="posts">
+<div id="content">
 	<div id="posts-list">
 		<?php
-		$count = 1;
-		foreach($postsList->items as $postItem) {
-			if ($count == 1) {
-				$this->partial("postList/postListA");
-			} else {
-				$this->partial("postList/postListB");
+			foreach($postsList->items as $postItem) {
+				$this->partial("postList/postListC");
 			}
-			$count++;
-		}
 		?>
-
 	</div>
 	<?php echo $this->elements->getNavMobile($postsList); ?>
 </div>

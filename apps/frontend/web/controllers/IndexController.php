@@ -18,7 +18,7 @@ class IndexController extends ControllerBase
         $paginator = new \Chen\Library\Paginator(
             array(
                 'dataFrom' => 'Chen\Models\Posts',
-                'limit'    => 2,
+                'limit'    => 10,
                 'page'     => $currentPage,
                 'cache'    => $this->di->get('config')->cache->frontend->index
             )

@@ -23,11 +23,11 @@ class TypesController extends ControllerBase
         if ($this->request->isPost() == true && $this->request->isAjax()) {
             $currentPage = $this->request->getPost("page", "int");
 
-            $paginator = new \Phalcon\Paginator\Adapter\Model(
+            $paginator = new \Chen\Library\Paginator(
                 array(
-                    "data" => Types::find(array("order" => "id DESC")),
-                    "limit"=> 10,
-                    "page" => $currentPage
+                    'dataFrom' => 'Chen\Models\Types',
+                    'limit'    => 2,
+                    'page'     => $currentPage,
                 )
             );
      

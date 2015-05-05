@@ -1,17 +1,15 @@
-<article class="entry">
-	<div class="entry-thumb">
+<article class="list-style-b">
+	<div class="list-style-b-thumb">
 		<a href="<?php echo $postItem->getPostUrl() ?>" title="<?php echo $postItem->getPostTitle(28) ?>">
 			<?php echo $postItem->getPostThumbnail(140,100) ?>
 		</a>
 	</div>
-	<div class="entry-body">
-		<h2 class="entry-title"><a href="<?php echo $postItem->getPostUrl() ?>" rel="bookmark"><?php echo $postItem->getPostTitle(28) ?></a></h2>
-		<div class="entry-meta">
-			<span class="entry-category-icon"><?php echo $postItem->getPostCategoryLink() ?></span>
-			<span class=""><?php echo $postItem->getPostView() ?>℃</span>
-		</div>
-		<div class="entry-content">
-			<?php echo $postItem->getPostExcerpt(120) ?>
+	<div class="list-style-b-content">
+		<h2 class="list-style-b-title"><a href="<?php echo $postItem->getPostUrl() ?>"><?php echo $postItem->getPostTitle(28) ?></a></h2>
+		<div class="list-style-b-meta">
+			<span><i class="fa fa-th fa-fw"></i><?php echo $postItem->getPostCategoryLink() ?></span>
+			<span><?php echo $postItem->getPostView() ?>℃</span>
 		</div>
 	</div>
+	<div class="chen-cf"></div>
 </article>

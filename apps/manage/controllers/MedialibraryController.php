@@ -17,18 +17,16 @@ class MedialibraryController extends ControllerBase
     {
         
         $currentPage = $this->request->getQuery("page", "int");
-        
-        //  查询记录
-     	$file_list = Files::find(array("file_type = 1","order" => "upload_time desc"));
-        //  分页适配器
-        $paginator = new \Phalcon\Paginator\Adapter\Model(
+
+        $paginator = new \Chen\Library\Paginator(
             array(
-                "data" => $file_list,
-                "limit"=> 24,
-                "page" => $currentPage
+                'dataFrom' => 'Chen\Models\Files',
+                'limit'    => 24,
+                'page'     => $currentPage,
+                'condition'=> 'file_type = 1'
             )
         );
-        //  获取结果
+
         $file_list_page = $paginator->getPaginate();
 
         $this->view->fileListPage = $file_list_page;
@@ -86,17 +84,15 @@ class MedialibraryController extends ControllerBase
     {
         $currentPage = $this->request->getQuery("page", "int");
         
-        //  查询记录
-        $fileList = Files::find(array("file_type = 1","order" => "upload_time desc"));
-        //  分页适配器
-        $paginator = new \Phalcon\Paginator\Adapter\Model(
+        $paginator = new \Chen\Library\Paginator(
             array(
-                "data" => $fileList,
-                "limit"=> 24,
-                "page" => $currentPage
+                'dataFrom' => 'Chen\Models\Files',
+                'limit'    => 24,
+                'page'     => $currentPage,
+                'condition'=> 'file_type = 1'
             )
         );
-        //  获取结果
+
         $fileListPage = $paginator->getPaginate();
 
         $this->view->fileListPage = $fileListPage;
@@ -108,17 +104,15 @@ class MedialibraryController extends ControllerBase
     {
         $currentPage = $this->request->getQuery("page", "int");
         
-        //  查询记录
-        $file_list = Files::find(array("file_type = 1","order" => "upload_time desc"));
-        //  分页适配器
-        $paginator = new \Phalcon\Paginator\Adapter\Model(
+        $paginator = new \Chen\Library\Paginator(
             array(
-                "data" => $file_list,
-                "limit"=> 24,
-                "page" => $currentPage
+                'dataFrom' => 'Chen\Models\Files',
+                'limit'    => 24,
+                'page'     => $currentPage,
+                'condition'=> 'file_type = 1'
             )
         );
-        //  获取结果
+
         $file_list_page = $paginator->getPaginate();
 
         $this->view->fileListPage = $file_list_page;

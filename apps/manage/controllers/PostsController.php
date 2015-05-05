@@ -31,15 +31,14 @@ class PostsController extends ControllerBase
 
             $currentPage = $this->request->getPost("page", "int");
 
-            $postsListFind = Posts::find(array("order" => "publish_time desc"));
-
-            $paginator = new \Phalcon\Paginator\Adapter\Model(
+            $paginator = new \Chen\Library\Paginator(
                 array(
-                    "data" => $postsListFind,
-                    "limit"=> 4,
-                    "page" => $currentPage
+                    'dataFrom' => 'Chen\Models\Posts',
+                    'limit'    => 2,
+                    'page'     => $currentPage,
                 )
             );
+            
             //  获取结果
             $postsLists = $paginator->getPaginate();
 

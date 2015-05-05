@@ -54,10 +54,30 @@ use \Phalcon\Mvc\User\Component;
             }
         echo '</div>';
     }
+
+    public function getSearchTopNav($page, $search)
+    {
+        $search = APP_URL.'/search?s='.$search; 
+        
+        $current = $page->current;
+        $before = $page->before;
+        $next = $page->next;
+        $last = $page->last;
+
+        echo '<div class="prev-next">';
+            if ($current != $before) {
+                echo '<a class="prev" href="'.$search.'&page='.$before.'">上一页</a>';
+            }
+            echo '<span class="prev-next-page">第'.$current.'页</span>';
+            if ($current != $next) {    
+                echo '<a class="" href="'.$search.'&page='.$next.'">下一页</a>';
+            }
+        echo '</div>';
+    }
     
     public function getNav($page)
     {
-        
+
         $current = $page->current;
         $before = $page->before;
         $next = $page->next;
@@ -85,6 +105,37 @@ use \Phalcon\Mvc\User\Component;
         echo '</div>';
     }
 
+    public function getSearchNav($page, $search)
+    {
+        $search = APP_URL.'/search?s='.$search;
+
+        $current = $page->current;
+        $before = $page->before;
+        $next = $page->next;
+        $last = $page->last;
+        $total_pages = $page->total_pages;
+        $total_items = $page->total_items;
+
+        echo '<div class="pagenavi">';
+            if ($current != 1) {
+                echo '<a href="'.$search.'">首页</a>';
+            }
+            if ($current != $before) {
+                echo '<a href="'.$search.'&page='.$before.'">上一页</a>';
+            }            
+            echo '<span class="current-nav">'.$current.'</span>';
+            if ($current != $next) {
+                echo '<a href="'.$search.'&page='.$next.'">下一页</a>';
+            }
+            if ($current != $last) {
+                echo '<a href="'.$search.'&page='.$last.'">末页</a>';
+            }
+            echo '<a href="#">共 '.$total_pages.' 页</a>';
+            echo '<a href="#">共 '.$total_items.' 篇文章</a>';
+
+        echo '</div>';
+    }
+
     /* web */
 
     /* wap */
@@ -102,6 +153,26 @@ use \Phalcon\Mvc\User\Component;
             echo '<span class="prev-next-page">第'.$current.'页</span>';
             if ($current != $next) {    
                 echo '<a class="" href="?page='.$next.'">下一页</a>';
+            }
+        echo '</div>';
+    }
+
+    public function getSearchNavMobile($page, $search)
+    {
+        
+        $search = APP_URL.'/search?s='.$search;
+
+        $current = $page->current;
+        $before = $page->before;
+        $next = $page->next;
+
+        echo '<div class="prev-next">';
+            if ($current != $before) {
+                echo '<a class="prev" href="'.$search.'&page='.$before.'">上一页</a>';
+            }
+            echo '<span class="prev-next-page">第'.$current.'页</span>';
+            if ($current != $next) {    
+                echo '<a class="" href="'.$search.'&page='.$next.'">下一页</a>';
             }
         echo '</div>';
     }

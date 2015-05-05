@@ -63,13 +63,27 @@
 					<h5 class="border-left">相关文章</h5>
 				</div>
 				<ul class="related-post">
-					<?php var_dump($post->getPage()) ?>
-						
+					<?php foreach ($post->getRelatedPost(8) as $postItem) { ?>
+						<li>
+							<a href="<?php echo $postItem->getPostUrl() ?>">
+								<?php echo $postItem->getPostThumbnail(165, 105) ?>
+							</a>
+							<h4>
+								<a href="<?php echo $postItem->getPostUrl() ?>">
+									<?php echo $postItem->getPostTitle(20) ?>
+								</a>
+							</h4>
+							<p><i class="fa fa-th"></i><?php echo $postItem->getPostCategory() ?></p>
+							<p><?php echo $postItem->getPostView() ?>℃</p>
+
+						</li>
+					<?php } ?>						
 				</ul>
+				<div class="clear"></div>
 			</div>	
-			<div id="post-comments">
+			<!-- <div id="post-comments">
 					
-			</div>
+			</div> -->
 				
 				
 				

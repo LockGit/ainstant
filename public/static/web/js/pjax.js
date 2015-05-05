@@ -1,14 +1,15 @@
 $(document).ready(function(){
     //pjax 开始
     $.pjax({
-        selector: 'a[href^="'+pjaxHomeUrl+'"]',
+        //selector: 'a[href^="'+pjaxHomeUrl+'"]',
+        selector: 'a',
         container: '#main',
         show: '',  //展现的动画，支持默认和fade, 可以自定义动画方式，这里为自定义的function即可。
         cache: false,  //是否使用缓存
         storage: false,  //是否使用本地存储
         titleSuffix: pjaxTitleSuffix,
         filter: function(href){
-            if(href.indexOf('feed')> -1 || href.indexOf('wp-login.php')> -1 ||href.indexOf('wp-content/') > -1 || href.indexOf('wp-admin/') > -1|| href.indexOf('/lab/') > -1){
+            if(href.indexOf('feed')> -1 || href.indexOf('manage')> -1 ||href.indexOf('wp-content/') > -1 || href.indexOf('wp-admin/') > -1|| href.indexOf('/lab/') > -1){
                 return true;
             }
         },
