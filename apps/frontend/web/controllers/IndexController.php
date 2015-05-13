@@ -19,13 +19,14 @@ class IndexController extends ControllerBase
             array(
                 'dataFrom' => 'Chen\Models\Posts',
                 'limit'    => 10,
-                'page'     => $currentPage
+                'page'     => $currentPage,
+                'cache'    => $this->di->get('config')->cache->frontend->index
             )
         );
         
         $this->view->posts_list = $paginator->getPaginate();
 
-        $this->tag->appendTitle($this->di->get('config')->site->title);
+        $this->tag->appendTitle('最美好的那一刻');
         $this->view->pageDescription = $this->di->get('config')->site->description;
         $this->view->pageKeywords = $this->di->get('config')->site->keywords;
 

@@ -65,14 +65,12 @@ class MedialibraryController extends ControllerBase
                         'msg' => '上传成功',
                         'file_path' => $fileUrl
                     );
-                    $this->response->setContentType('application/json', 'utf-8');
                     echo json_encode($jsonReturn);                 
                 } else {
                     $jsonReturn = array(
                         'success' => 'false',
                         'msg' => '上传失败'
                     );
-                    $this->response->setContentType('application/json', 'utf-8');
                     echo json_encode($jsonReturn);  
                 }
                             

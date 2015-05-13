@@ -4,7 +4,6 @@ namespace Chen\Frontend\Web\Controllers;
 use \Phalcon\Mvc\Controller;
 use \Phalcon\Mvc\View;
 use Chen\Models\Posts;
-use Chen\Models\Categorys;
 use Chen\Models\Tags;
 
 class ControllerBase extends Controller
@@ -14,10 +13,9 @@ class ControllerBase extends Controller
     {
         
         $this->tag->setTitleSeparator(' | ');
-        $this->tag->setTitle($this->di->get('config')->site->name);
+        $this->tag->setTitle('一刻');
 
         $this->view->post = new Posts();
-        $this->view->categorys = new Categorys();
         $this->view->tags = new Tags();
 
         if ($this->is_pjax()) {

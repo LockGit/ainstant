@@ -1,8 +1,8 @@
 $(document).ready(function(){
     //pjax 开始
     $.pjax({
-        selector: 'a[href^="'+pjaxHomeUrl+'"]',
-        //selector: 'a',
+        //selector: 'a[href^="'+pjaxHomeUrl+'"]',
+        selector: 'a',
         container: '#main',
         show: '',  //展现的动画，支持默认和fade, 可以自定义动画方式，这里为自定义的function即可。
         cache: false,  //是否使用缓存
@@ -129,18 +129,18 @@ $(document).ready(function(){
     });
 });
 
-$(function(){
-    $('.nav-content .submenu').click(function(e){
-        e.preventDefault();
-        
-        if ($('.nav-explor').not($(this).next()).hasClass('nav-explor-block')) {
-            $('.nav-explor').removeClass('nav-explor-block');
-        }
 
-        $(this).next().toggleClass('nav-explor-block');
-
-    });
-});
+// pjax后需要回调函数.加载多说
+function pajx_loadDuodsuo(){
+    var dus=$(".ds-thread");
+    if($(dus).length==1){
+        var el = document.createElement('div');
+        el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+        el.setAttribute('data-url',$(dus).attr("data-url"));
+        DUOSHUO.EmbedThread(el);
+        $(dus).html(el);
+    }
+};
 
 
 $(document).ready(function(){

@@ -55,6 +55,12 @@ class Posts extends \Phalcon\Mvc\Model
      */
     public $post_author;
 
+     /**
+     * @var int
+     *      浏览次数
+     */
+    //public $post_viewcount;
+
     /**
      * @var string
      *      关键词
@@ -122,18 +128,7 @@ class Posts extends \Phalcon\Mvc\Model
 
     public function getPublishedDate()
     {
-        return date('Y-m-d H:i:s', $this->publish_time);
-    }
-
-    public function getFeedPublishedDate()
-    {
-        return date('D, d M Y H:i:s +0000', $this->publish_time);
-    }
-
-    public function getFeedLastBuildDate()
-    {
-        $lastBuildDate = self::findFirst(array('columns' => 'publish_time'))->publish_time;
-        return date('D, d M Y H:i:s +0000', $lastBuildDate);
+        return date("Y-m-d H:i:s", $this->publish_time);
     }
 
     public function getPostTitle($max_length = 30) 
@@ -147,16 +142,6 @@ class Posts extends \Phalcon\Mvc\Model
         return $title_str; 
     } 
 
-    public function getAuthor()
-    {
-        $author = $this->getUsers(array('columns' => 'username, nicename'));
-        if (!empty($author->nicename)) {
-            return $author->nicename;
-        } else {
-            return $author->username;
-        }
-        
-    }
     
     public function getPostExcerpt($max_length = 100) 
     { 
@@ -171,85 +156,57 @@ class Posts extends \Phalcon\Mvc\Model
     
     public function getPostType() 
     {
-        return $this->getTypes(array('columns' => 'typetitle'))->typetitle;
+        return $this->getTypes()->typetitle;
     }
     
-    public function getPostCategory($glue = ',')
+    public function getPostCategory($glue = ',') 
     {
-        
-        $phql = 'SELECT Chen\Models\Categorys.cattitle FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Categorys WHERE posts_id ='.$this->id;
-        $query = $this->modelsManager->executeQuery($phql);
-
         $categorys = array();
-        foreach ($query as $value) {
-            $categorys[] = $value->cattitle;
+        foreach ($this->getPostsCategorys() as $PostsCategory) {
+            $category = $PostsCategory->getCategorys();
+            $categorys[] = $category->cattitle;
         }
-
         return implode(' '.$glue.' ', $categorys);
     }
     
-    public function getPostCategoryLink($glue = ',')
+    public function getPostCategoryLink($glue = ',') 
     {
-
-        $phql = 'SELECT Chen\Models\Categorys.cattitle FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Categorys WHERE posts_id ='.$this->id;
-        $query = $this->modelsManager->executeQuery($phql);
-
         $categorys = array();
-        foreach ($query as $value) {
-            $categoryName = $value->cattitle;
+        foreach ($this->getPostsCategorys() as $PostsCategory) {
+            $category = $PostsCategory->getCategorys();
+            $categoryName = $category->cattitle;
             $categoryUrl = urlencode($categoryName);
             $categorys[] = Tag::linkTo(array('category/'.$categoryUrl, $categoryName));
         }
         return implode(' '.$glue.' ', $categorys);
     }
     
-    public function getArrayPostCategory()
-    {
-        $phql = 'SELECT Chen\Models\Categorys.cattitle FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Categorys WHERE posts_id ='.$this->id;
-        $query = $this->modelsManager->executeQuery($phql);
-
-        $categorys = array();
-        foreach ($query as $value) {
-            $categorys[] = $value->cattitle;
-        }
-
-        return $categorys;
-    }
-
     public function getPostTag($glue = ',') 
     {
-
-        $phql = 'SELECT Chen\Models\Tags.tagtitle FROM Chen\Models\PostsTags INNER JOIN Chen\Models\Tags WHERE posts_id ='.$this->id;
-        $query = $this->modelsManager->executeQuery($phql);
-
         $tags = array();
-        foreach ($query as $value) {
-            $tags[] = $value->tagtitle;
+        foreach ($this->getPostsTags() as $TagsCategory) {
+            $tag = $TagsCategory->getTags();
+            $tags[] = $tag->tagtitle;
         }
-
         return implode(' '.$glue.' ', $tags);
     }
     
     public function getPostTagLink($glue = ',') 
     {
-
-        $phql = 'SELECT Chen\Models\Tags.tagtitle FROM Chen\Models\PostsTags INNER JOIN Chen\Models\Tags WHERE posts_id ='.$this->id;
-        $query = $this->modelsManager->executeQuery($phql);
-
         $tags = array();
-        foreach ($query as $value) {
-            $tagName = $value->tagtitle;
+        foreach ($this->getPostsTags() as $TagsCategory) {
+            $tag = $TagsCategory->getTags();
+            $tagName = $tag->tagtitle;
             $tagUrl = urlencode($tagName);
             $tags[] = Tag::linkTo(array('tag/'.$tagUrl, $tagName));
         }
-
         return implode(' '.$glue.' ', $tags);
     }
     
     public function getPostView() 
     {                       
         
-        $postViewCount = $this->getPostsViews(array('columns' => 'post_view'));
+        $postViewCount = $this->getPostsViews();
 
         if ($postViewCount != false) {
             $count = $postViewCount->post_view;
@@ -335,101 +292,48 @@ class Posts extends \Phalcon\Mvc\Model
 
     public function getNextPost()
     {
-        $maxId = self::maximum(array('column' => 'id'));     
+        $maxId = self::maximum(array("column" => "id"));     
         $id = $this->id;
         if ( $maxId == $id ) {
             $nextPost = '';
         } else {
+            $id ++;
             do {           
-                $id ++;
                 $nextPost = self::findFirst($id);
+                $id ++;
             } while ( $nextPost == false );
         }
-
-        if (empty($nextPost)) {
-            return '<a href="javascript:alert(\'木有啦，已经是最后一篇了...\');">木有啦</a>';
-        } else {
-            return '<a href="'.$nextPost->getPostUrl().'">'.$nextPost->getPostTitle().'</a>';
-        }
-    }
-
-    public function getNextPostButton()
-    {
-        $maxId = self::maximum(array('column' => 'id'));     
-        $id = $this->id;
-        if ( $maxId == $id ) {
-            $nextPost = '';
-        } else {
-            do {           
-                $id ++;
-                $nextPost = self::findFirst($id);
-            } while ( $nextPost == false );
-        }
-
-        if (empty($nextPost)) {
-            return '<a href="javascript:alert(\'木有啦，已经是最后一篇了...\');">木有啦</a>';
-        } else {
-            return '<a href="'.$nextPost->getPostUrl().'">下一篇</a>';
-        }
+        return $nextPost;
     }
 
     public function getPreviousPost()
     {
-        $minId = self::minimum(array('column' => 'id'));       
+        $minId = self::minimum(array("column" => "id"));       
         $id = $this->id;
         if ( $minId == $id ) {
             $prevPost = '';
         } else {
+            $id --;
             do {           
+                $prevPost = self::findFirst($id);
                 $id --;
-                $prevPost = self::findFirst($id);                
             } while ( $prevPost == false );
         }
-        
-        if (empty($prevPost)) {
-            return '<a href="javascript:alert(\'木有啦，已经是第一篇了...\');">木有啦</a>';
-        } else {
-            return '<a href="'.$prevPost->getPostUrl().'">'.$prevPost->getPostTitle().'</a>';
-        }
-    }
-
-    public function getPreviousPostButton()
-    {
-        $minId = self::minimum(array('column' => 'id'));       
-        $id = $this->id;
-        if ( $minId == $id ) {
-            $prevPost = '';
-        } else {
-            do {           
-                $id --;
-                $prevPost = self::findFirst($id);                
-            } while ( $prevPost == false );
-        }
-        
-        if (empty($prevPost)) {
-            return '<a href="javascript:alert(\'木有啦，已经是第一篇了...\');">木有啦</a>';
-        } else {
-            return '<a href="'.$prevPost->getPostUrl().'">上一篇</a>';
-        }
+        return $prevPost;
     }
 
     public function getRelatedPost($number = 10)
     {
-
-        $phql = 'SELECT Chen\Models\Tags.id FROM Chen\Models\PostsTags INNER JOIN Chen\Models\Tags WHERE posts_id ='.$this->id;
-        $queryTag = $this->modelsManager->executeQuery($phql);
-
-        $tagId = array();
-        foreach ($queryTag as $value) {
-            $tagId[] = $value->id;
-        }
-
-        $phql2 = 'SELECT Chen\Models\Posts.id FROM Chen\Models\PostsTags INNER JOIN Chen\Models\Posts WHERE tags_id IN ('.implode(',', $tagId).')';
-        $queryPost = $this->modelsManager->executeQuery($phql2);
-
+        
         $postId = array();
-        foreach ($queryPost as $value) {
-            $postId[] = $value->id;
+        foreach ($this->getPostsTags() as $postsTags) {
+            $tag = $postsTags->getTags();
+            foreach ($tag->getPostsTags() as $postsTags) {
+                $getPost = $postsTags->getPosts(array('columns' => 'id'));
+                if ($getPost != false) {
+                    $postId[] = $getPost->id; 
+                } 
+            }            
         }
 
         $postId  = array_unique($postId);
@@ -437,22 +341,17 @@ class Posts extends \Phalcon\Mvc\Model
         
         if ($postIdCount < $number) {
 
-            $phql3 = 'SELECT Chen\Models\Categorys.id FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Categorys WHERE posts_id ='.$this->id;
-            $queryCat = $this->modelsManager->executeQuery($phql3);
-
-            $catId = array();
-            foreach ($queryCat as $value) {
-                $catId[] = $value->id;
-            }
-
-            $phql4 = 'SELECT Chen\Models\Posts.id FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Posts WHERE categorys_id IN ('.implode(',', $catId).')';
-            $queryPost2 = $this->modelsManager->executeQuery($phql4);
-
             $postId2 = array();
-            foreach ($queryPost2 as $value) {
-                $postId2[] = $value->id;
+            foreach ($this->getPostsCategorys() as $PostsCategory) {
+                $cat = $PostsCategory->getCategorys();
+                foreach ($cat->getPostsCategorys() as $PostsCategory) {
+                    $getPost = $PostsCategory->getPosts(array('columns' => 'id'));
+                    if ($getPost != false) {
+                        $postId2[] = $getPost->id; 
+                    } 
+                }            
             }
-            
+
             $postId2  = array_unique($postId2);
             $postId2 = array_diff($postId2, $postId);
             $postId2Count = count($postId2);
@@ -476,6 +375,7 @@ class Posts extends \Phalcon\Mvc\Model
 
             $postIds = array_merge($postId, $postId2);
 
+
         } elseif ($postIdCount > $number) {
             
             $postIds = array();
@@ -488,8 +388,12 @@ class Posts extends \Phalcon\Mvc\Model
             $postIds = $postId;
         }
 
-        $phql = 'SELECT * FROM Chen\Models\Posts WHERE id IN ('.implode(',', $postIds).')';
-        return  $this->modelsManager->executeQuery($phql);
+        $posts = array();
+        foreach ($postIds as $value) {
+            $posts[] = self::findFirst($value);
+        }
+
+        return  $posts;
 
     }
 
@@ -520,37 +424,28 @@ class Posts extends \Phalcon\Mvc\Model
             $postIdRand = $postId;
         }
 
-        $phql = 'SELECT * FROM Chen\Models\Posts WHERE id IN ('.implode(',', $postIdRand).')';
-        return $this->modelsManager->executeQuery($phql);
+        $posts = array();
+        foreach ($postIdRand as $value) {
+            $posts[] = self::findFirst($value);
+        }
+
+        return $posts;
     }
 
-    public function getAbc()
-    {
-        
-        
-        //$phql = 'SELECT Chen\Models\Categorys.* FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Categorys WHERE posts_id ='.$this->id;
-        //$query = $this->modelsManager->executeQuery($phql);
-        
-        //$categorys = array();
-        //foreach ($query as $value) {
-        //    $categorys[] = $value->cattitle;
-        //}
+    public function getPage()
+    {   
 
-        //return $categorys;
-        //return $query->toArray();
-        //return $query;
-        $limit = 2;
-        $start = 3;
-        $categorys_id = 1;
-        //$phql = 'SELECT Chen\Models\Posts.id FROM Chen\Models\PostsCategorys INNER JOIN Chen\Models\Posts WHERE categorys_id = 1 ORDER BY Chen\Models\Posts.id DESC LIMIT '.$limit.' OFFSET '.$start;
-        $phql = 'SELECT COUNT(Chen\Models\PostsCategorys.posts_id) AS post_count FROM Chen\Models\PostsCategorys WHERE categorys_id = '.$categorys_id;
-        $query = $this->modelsManager->executeQuery($phql);
-        
-        //foreach ($query as $row) {
-        //    $post_count = $row->post_count;
-        //}
+        //$query = new Query("SELECT id FROM Chen\Models\Posts", $this->getDI());
+        //$posts = $query->execute();
 
-        return $query;
+        //$postId = array();
+        //foreach ($posts as $post) {
+        //    $postId[] = $post->id;
+        //}
+        //$posts = self::findFirst(array('7', 'columns' => 'id'));
+        $posts = self::find(array("order" => "id DESC", "limit" => array(3, 6)));
+
+        return __CLASS__;
     }
 
     public function getPostCount()

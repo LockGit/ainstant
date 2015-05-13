@@ -2,7 +2,6 @@
 namespace Chen\Frontend\Web\Controllers;
 
 use Chen\Models\Posts;
-use \Phalcon\Mvc\View;
 
 class PostController extends ControllerBase
 {
@@ -31,15 +30,6 @@ class PostController extends ControllerBase
         $this->view->pageDescription = (!empty($post->post_description)) ? $post->post_description : $post->getPostExcerpt();
         $this->view->pageKeywords = (!empty($post->post_keywords)) ? $post->post_keywords : $post->getPostTag().','.$post->getPostCategory();       
 
-    }
-
-    public function feedAction()
-    {
-        $this->response->setContentType('text/xml', 'utf-8');
-        
-        $this->view->posts = Posts::find(array('order' => 'id DESC', 'limit' => 10));
-
-        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
 }

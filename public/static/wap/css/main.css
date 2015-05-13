@@ -97,6 +97,7 @@ body{
 }
 .bottom-nav-cat ul li a {
 	font-size: 1.5rem;
+	line-height: 1;
 	display: block;
 	padding: 0 10px;
 	margin: 0 5px;
@@ -115,6 +116,7 @@ body{
 	display:inline-block;
 	width: auto;
 	font-size: 1.5rem;
+	line-height: 1;
 	padding: 0 10px;
 	margin: 2px 5px;
 	text-align: center;
@@ -192,8 +194,8 @@ body{
 
 
 .list-style-b {
-	margin: 10px 5px 0 5px;
-	padding-top: 10px;
+	margin-top: 10px;
+	padding: 10px 10px 0 10px;
 	border-top: 1px dashed #ddd;
 }
 .list-style-b-thumb {
@@ -266,24 +268,6 @@ body{
 }
 
 /* post-list end */
-
-/* crumb */
-.crumb {
-	padding: 100px 5px 5px 5px;
-	color: #fff;
-}
-.crumb h1 {
-	font-size: 2.5rem;
-}
-.crumb span {
-	font-size: 1.2rem;
-}
-
-.crumb-background {
-	background: #99CC33
-}
-/* crumb end */
-
 /*-------------------------------------------------*/
 /* = post
 /*-------------------------------------------------*/
@@ -367,7 +351,6 @@ body{
 	color: #fff;
 	font-size: 1.4rem;
 	border-radius: 4px;
-	margin: 0 4px;
 }
 .post-detail .prev-next-post a:hover{
 	background: rgba(255,153,0,1);

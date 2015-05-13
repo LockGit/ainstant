@@ -8,16 +8,16 @@
 					<h1 class="border-left"><a href="<?php echo $post->getPostUrl() ?>"><?php echo $post->getPostTitle() ?></a></h1>
 				</div>
 				<div class="single-default-post-info">
-					<span class="single-default-box-cat muted">
+					<span class="single-default-box-cat muted"><i class="icon-time icon12"></i>
 						<?php echo $post->getPublishedDate() ?>
 					</span>
-					<span class="single-default-box-cat muted">
+					<span class="single-default-box-cat muted"><i class="icon-eye-open icon12"></i>
 						<?php echo $post->getPostView(); ?> ℃
 					</span>
-					<span class="single-default-box-cat muted">
-						<?php echo $getPostCategoryLink = $post->getPostCategoryLink() ?>	
+					<span class="single-default-box-cat muted"><i class="icon-th-list icon12"></i>
+						<?php echo $getPostCategoryLink = $post->getPostCategoryLink() ?>			
 					</span>
-					<span class="single-default-box-cat muted">
+					<span class="single-default-box-cat muted"><i class="icon-bookmark icon12"></i>
 						<?php echo $getPostTagLink = $post->getPostTagLink() ?>
 					</span>
 				</div>
@@ -31,26 +31,29 @@
 				</div>
 				<div class="post-detail">
 					<ul>
-						<li>所属分类：<span id="post_category"> 
+						<li><span class="muted"><i class="icon-th-list"></i></span> 所属分类：<span id="post_category"> 
 							<?php echo $getPostCategoryLink ?>
 							</span>
 						</li>
-						<li>本文标签：
+						<li><span class="muted"><i class="icon-bookmark"></i></span> 本文标签：
 							<?php echo $getPostTagLink ?>
 						</li>
-						<li>文章热度：<span id="post_view_count">
+						<li><span class="muted"><i class="icon-fire"></i></span> 文章热度：<span id="post_view_count">
 							<font color="red"><?php echo $post->getPostView(); ?> ℃</font></span> 
 						</li>
-						<li>生产时间：
+						<li><span class="muted"><i class="icon-time"></i></span> 生产时间：
+							<?php //the_time("Y年m月j日  a G:i "); ?>
 							<?php echo $post->getPublishedDate() ?>
 						</li>
 					</ul>
 					<ul class="entry-relate-links">
-						<li>上一篇 &gt;：</span>
-							<?php echo $post->getPreviousPost() ?>
+						<li><span class="muted"><i class="icon-chevron-up"></i> 上一篇 &gt;：</span>
+							<a href="<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
+								<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
 						</li>
-						<li>下一篇 &gt;：</span>
-							<?php echo $post->getNextPost() ?>
+						<li><span class="muted"><i class="icon-chevron-down"></i> 下一篇 &gt;：</span>
+							<a href="<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
+								<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
 						</li>
 					</ul>
 				</div>
@@ -70,18 +73,20 @@
 									<?php echo $postItem->getPostTitle(20) ?>
 								</a>
 							</h4>
-							<p><?php echo $postItem->getPostCategory() ?></p>
+							<p><i class="fa fa-th"></i><?php echo $postItem->getPostCategory() ?></p>
 							<p><?php echo $postItem->getPostView() ?>℃</p>
 
 						</li>
-					<?php } ?>				
+					<?php } ?>						
 				</ul>
 				<div class="clear"></div>
-			</div>
-			<?php //echo var_dump($post->getAbc()) ?>	
+			</div>	
 			<!-- <div id="post-comments">
-			
-			</div> -->				
+					
+			</div> -->
+				
+				
+				
 		</article>
 	</div>
 	<!-- sidebar -->

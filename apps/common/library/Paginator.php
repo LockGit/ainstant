@@ -38,6 +38,10 @@ class Paginator extends Component
         	$this->_page = $this->_config['page'];
         }
 
+        if (isset($this->_config['cache']) === true) {
+        	$this->_isCache = $this->_config['cache'];
+        }
+
         if (isset($this->_config['condition']) === true) {
             $this->_condition = $this->_config['condition'];
         }
@@ -76,13 +80,36 @@ class Paginator extends Component
         }
 
         $start = ($currentPage - 1) * $limit;
-        if ($start < 0) {
-            $start = 0;
-        }
-        
         $findConfig = array('order' => 'id DESC', 'limit' => array('number' => $limit, 'offset' => $start), $this->_condition);
 
-    	$itemsFind = call_user_func_array(array($dataFrom, 'find'), array($findConfig));
+        if ($isCache === true) {
+        	$cacheKey = 'items-paginator-'.md5($dataFrom.$currentPage);
+        	
+        	$itemCountKey = 'itemCount-'.md5($dataFrom.$limit.$itemCount);
+        	$itemsCacheCount = $this->modelsCache->get($itemCountKey);
+
+        	if ((int)$itemsCacheCount != (int)$itemCount) {
+        		$keys = $this->modelsCache->queryKeys('itemCount-');
+				foreach ($keys as $key) {
+    				$this->modelsCache->delete($key);
+				}
+				$this->modelsCache->delete($cacheKey);
+        	}
+
+        	if($itemsCacheCount === null) {
+        		$this->modelsCache->save($itemCountKey, $itemCount);
+        	}
+
+        	$itemsFind = $this->modelsCache->get($cacheKey, 120);
+	        if ($itemsFind === null) {
+
+	            $itemsFind = call_user_func_array(array($dataFrom, 'find'), array($findConfig));
+	            $this->modelsCache->save($cacheKey, $itemsFind);
+	        }
+
+    	} else {
+    		$itemsFind = call_user_func_array(array($dataFrom, 'find'), array($findConfig));
+    	}
 
 		$pageItem = new \stdClass();
         $pageItem->items = $itemsFind;
