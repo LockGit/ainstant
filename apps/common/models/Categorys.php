@@ -42,5 +42,10 @@ class Categorys extends \Phalcon\Mvc\Model
 
         return $categorys;
     }
+
+    public function getCatPostCount()
+    {
+        return count($this->getPostsCategorys());
+    }
      
 }

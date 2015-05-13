@@ -19,28 +19,20 @@ class tagController extends ControllerBase
         $TagFind = Tags::findFirst(array("tagtitle = '$TagName'"));
         
         if ($TagFind != false) {
-       
-            $posts = array();
-            foreach ($TagFind->getPostsTags(array("order" => "id DESC")) as $PostsTags) {
-                $posts[] = $PostsTags->getPosts();
-            }
-
-            if (empty($posts)) {
-                return $this->forward('errors/show404');
-            }
-
-            $paginator = new \Phalcon\Paginator\Adapter\NativeArray(
+            
+            $paginator = new \Chen\Frontend\Library\CatPaginator(
                 array(
-                    "data" => $posts,
-                    "limit"=> 10,
-                    "page" => $currentPage
+                    'dataFrom' => 'PostsTags',
+                    'dataFromId' => 'tags_id = '.$TagFind->id,
+                    'limit'    => 10,
+                    'page'     => $currentPage
                 )
             );
 
             $this->view->posts_list = $paginator->getPaginate();
             $this->view->crumbName = $TagName;
 
-            $this->tag->appendTitle($TagName);
+            $this->tag->prependTitle($TagName);
             $this->view->pageDescription = ($TagName == $TagFind->description) ? '关于'.$TagName.'的文章分类' : $TagFind->description;
             $this->view->pageKeywords = $TagName;
         

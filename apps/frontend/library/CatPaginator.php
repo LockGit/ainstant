@@ -1,9 +1,8 @@
 <?php
-namespace Chen\Library;
-
+namespace Chen\Frontend\Library;
 use \Phalcon\Mvc\User\Component;
 
-class Paginator extends Component
+class CatPaginator extends Component
 {
 	protected $_config;
 
@@ -13,12 +12,11 @@ class Paginator extends Component
 
 	protected $_dataFrom;
 
+	protected $_dataFromId;
+
 	protected $_isCache;
 
-    protected $_condition;
-
-
-	public function __construct($config)
+    public function __construct($config)
 	{
 		if (is_array($config) === false) {
             exit;
@@ -30,6 +28,10 @@ class Paginator extends Component
         	$this->_dataFrom = $this->_config['dataFrom'];
         }
 
+        if (isset($this->_config['dataFromId']) === true) {
+        	$this->_dataFromId = $this->_config['dataFromId'];
+        }
+
         if (isset($this->_config['limit']) === true) {
         	$this->_limitRows = $this->_config['limit'];
         }
@@ -38,20 +40,22 @@ class Paginator extends Component
         	$this->_page = $this->_config['page'];
         }
 
-        if (isset($this->_config['condition']) === true) {
-            $this->_condition = $this->_config['condition'];
-        }
-
 	}
 
 	public function getPaginate()
 	{
 		$dataFrom = $this->_dataFrom;
+		$dataFromId = $this->_dataFromId;
 		$limit = $this->_limitRows;
 		$currentPage = $this->_page;
 		$isCache = $this->_isCache;
 
-		$itemCount = call_user_func(array($dataFrom, 'count'));
+		$itemCountPhql = 'SELECT COUNT(Chen\Models\\'.$dataFrom.'.posts_id) AS post_count FROM Chen\Models\\'.$dataFrom.' WHERE '.$dataFromId;
+        $itemCountQuery = $this->modelsManager->executeQuery($itemCountPhql);
+        
+        foreach ($itemCountQuery as $row) {
+            $itemCount = $row->post_count;
+        }
 
 		$total_pages = ceil($itemCount / $limit);
 
@@ -77,12 +81,12 @@ class Paginator extends Component
 
         $start = ($currentPage - 1) * $limit;
         if ($start < 0) {
-            $start = 0;
+        	$start = 0;
         }
-        
-        $findConfig = array('order' => 'id DESC', 'limit' => array('number' => $limit, 'offset' => $start), $this->_condition);
 
-    	$itemsFind = call_user_func_array(array($dataFrom, 'find'), array($findConfig));
+        $itemsFindPhql = 'SELECT Chen\Models\Posts.* FROM Chen\Models\\'.$dataFrom.' INNER JOIN Chen\Models\Posts WHERE '.$dataFromId.' ORDER BY Chen\Models\Posts.id DESC LIMIT '.$limit.' OFFSET '.$start;
+        
+    	$itemsFind = $this->modelsManager->executeQuery($itemsFindPhql);
 
 		$pageItem = new \stdClass();
         $pageItem->items = $itemsFind;
@@ -95,6 +99,5 @@ class Paginator extends Component
 
         return $pageItem;
 	}
-
 
 }

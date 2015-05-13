@@ -37,11 +37,6 @@ class Tags extends \Phalcon\Mvc\Model
         return $this->tagtitle;
     }
 
-    // public function getTagUrl()
-    // {        
-    //     return $tagUrl = APP_URL.'/tag/'.urlencode($this->tagtitle);     
-    // }
-
     public function getTags()
     {
         $tagsFind = self::find();
@@ -57,6 +52,6 @@ class Tags extends \Phalcon\Mvc\Model
 
     public function getTagPostCount()
     {
-        return count($this->getPostsTags());
+        //return count($this->getPostsTags());
     }
 }

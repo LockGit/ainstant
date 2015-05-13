@@ -18,28 +18,22 @@
 			<div class="section-title post-title-background">关于本文</div>
 			<div class="post-detail">
 				<ul>
-					<li>属于分类：<span id="post_category"><?php echo $post->getPostTagLink() ?></li>
-					<li>本文标签：<?php echo $post->getPostCategoryLink() ?></li>
+					<li>属于分类：<span id="post_category"><?php echo $post->getPostCategoryLink() ?></li>
+					<li>本文标签：<?php echo $post->getPostTagLink() ?></li>
 					<li>流行热度：<span id="post_view_count">超过  <?php echo $post->getPostView(); ?> 次浏览</span></li>
 					<li>生产日期：<?php echo $post->getPublishedDate() ?></li>
 				</ul>
 				<ul class="entry-relate-links">
 					<li><span class="muted"><i class="icon-chevron-up"></i> 上一篇 &gt;：</span>
-						<a href="<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
-							<?php if ($post->getPreviousPost()) { echo $post->getPreviousPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
+						<?php echo $post->getPreviousPost() ?>
 					</li>
 					<li><span class="muted"><i class="icon-chevron-down"></i> 下一篇 &gt;：</span>
-						<a href="<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostUrl(); } else { echo "javascript:alert('木有啦，已经是最后一篇了...');"; } ?>">
-							<?php if ($post->getNextPost()) { echo $post->getNextPost()->getPostTitle(); } else { echo "木有啦！！！"; } ?></a>
+						<?php echo $post->getNextPost() ?>
 					</li>
 				</ul>
 				<ul class="prev-next-post">
-					<?php if ($post->getPreviousPost()) { ?>
-						<a href="<?php echo $post->getPreviousPost()->getPostUrl() ?>" class="prev">上一篇文章</a>
-					<?php } ?>
-					<?php if ($post->getNextPost()) { ?>
-						<a href="<?php echo $post->getNextPost()->getPostUrl() ?>">下一篇文章</a>
-					<?php } ?>
+					<?php echo $post->getPreviousPostButton() ?>
+					<?php echo $post->getNextPostButton() ?>
 				</ul>
 			</div>
 		</div>

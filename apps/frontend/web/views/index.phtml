@@ -32,7 +32,29 @@
 		</div>
 		<nav class="nav">
 			<div class="nav-content">
-				
+				<ul>
+					<li><a href="<?php echo APP_URL ?>">首页</a></li>
+					<li>
+						<a href="#" class="submenu">分类</a>
+						<div class="nav-explor nav-cat">
+							<ul class="cat_ul  chen-cf">
+								<?php foreach($categorys->getCategorys() as $category ) { 
+									echo '<li>'.$category.'</li>';
+									} ?>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#" class="submenu">标签</a>
+						<div class="nav-explor nav-tag">
+							<?php foreach($tags->getTags() as $tag ) { 
+									echo $tag;
+								} ?>
+						</div>
+					</li>
+					<li><a href="#" class="submenu">关于我们</a></li>
+
+				</ul>
 			</div>				
 		</nav>
 
@@ -50,7 +72,7 @@
 
 <footer id="footer" class="border-top">
 	<div class="footer-content">
-		<p>Copyright &copy; <?php echo date('Y'); ?> Weilove.Me allright reserved. 粤备8023201314号</p>
+		<p>Copyright &copy; <?php echo date('Y'); ?> Ainstant.com allright reserved.</p>
 	</div>
 </footer>
 

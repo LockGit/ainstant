@@ -20,23 +20,20 @@ class CategoryController extends ControllerBase
 
         if ($CategoryFind != false) {
             
-            $posts = array();
-            foreach ($CategoryFind->getPostsCategorys(array("order" => "id DESC")) as $PostsCategorys) {
-                $posts[] = $PostsCategorys->getPosts();
-            }
-
-            $paginator = new \Phalcon\Paginator\Adapter\NativeArray(
+            $paginator = new \Chen\Frontend\Library\CatPaginator(
                 array(
-                    "data" => $posts,
-                    "limit"=> 10,
-                    "page" => $currentPage
+                    'dataFrom' => 'PostsCategorys',
+                    'dataFromId' => 'categorys_id = '.$CategoryFind->id,
+                    'limit'    => 10,
+                    'page'     => $currentPage
                 )
             );
 
             $this->view->postsList = $paginator->getPaginate();
             $this->view->crumbName = $CategoryName;
+            $this->view->postCount = $CategoryFind->getCatPostCount();
 
-            $this->tag->appendTitle($CategoryName);
+            $this->tag->prependTitle($CategoryName);
             $this->view->pageDescription = ($CategoryName == $CategoryFind->description) ? '关于'.$CategoryName.'的文章分类' : $CategoryFind->description;
             $this->view->pageKeywords = $CategoryName;
         
